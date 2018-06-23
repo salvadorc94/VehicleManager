@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="Resumen" />
+        <item
+            android:id="@+id/nav_gas"
+            android:icon="@drawable/ic_local_gas_station_black_24dp"
+            android:title="Gasolina" />
+        <item
+            android:id="@+id/nav_service"
+            android:icon="@drawable/ic_local_car_wash_black_24dp"
+            android:title="Servicios" />
+        <item
+            android:id="@+id/nav_bills"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Facturas" />
+        <item
+            android:id="@+id/nav_noti"
+            android:icon="@drawable/ic_notifications_black_24dp"
+            android:title="Notificaciones" />
+    </group>
+
+    <item android:title="Herramientas">
+        <menu>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Configuración" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_error_black_24dp"
+                android:title="Acerca De" />
+        </menu>
+    </item>
+
+</menu>
