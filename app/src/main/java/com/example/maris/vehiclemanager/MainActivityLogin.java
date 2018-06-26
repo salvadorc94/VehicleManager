@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 public class MainActivityLogin extends AppCompatActivity {
 
-    EditText username;
-    EditText password;
     Button entrar;
 
     @Override
@@ -19,26 +17,13 @@ public class MainActivityLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_login);
 
-        username = findViewById(R.id.user);
-        password = findViewById(R.id.pass);
         entrar = findViewById(R.id.btnentrar);
 
         entrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!username.equals("") && !password.equals("")){
-
                 Intent intent = new Intent(getApplicationContext(),MainActivityMenu.class);
                 startActivity(intent);
-
-                }
-                else {
-
-                    Toast.makeText(getApplicationContext(),"Complete los campos",Toast.LENGTH_SHORT).show();
-
-                }
-
             }
         });
 

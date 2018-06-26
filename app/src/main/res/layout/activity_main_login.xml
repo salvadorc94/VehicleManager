@@ -15,50 +15,15 @@
         android:src="@drawable/car"
         android:layout_gravity="center"/>
 
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Usuario o Correo"
-        android:textColorHint="@color/colorAccent"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="10dp"/>
-
-    <EditText
-        android:id="@+id/pass"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Contraseña"
-        android:textColorHint="@color/colorAccent"
-        android:inputType="textPassword"
-        android:layout_marginHorizontal="40dp"/>
-
     <Button
         android:id="@+id/btnentrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimary"
-        android:text="INICIAR SESION"
+        android:text="@string/btn_main_text"
         android:textColor="@color/white"/>
-
-    <Button
-        android:id="@+id/btncrear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="15dp"
-        android:background="@color/colorPrimary"
-        android:text="CREAR CUENTA"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="¿OLVIDÓ SU CONTRASEÑA?"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
