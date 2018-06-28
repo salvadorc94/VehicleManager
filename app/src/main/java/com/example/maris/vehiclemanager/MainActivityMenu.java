@@ -1,5 +1,6 @@
 package com.example.maris.vehiclemanager;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,12 +16,22 @@ import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
+import com.example.maris.vehiclemanager.Fragments.AboutUsFragment;
+import com.example.maris.vehiclemanager.Fragments.ExpencesFragment;
+import com.example.maris.vehiclemanager.Fragments.HomeFragment;
+import com.example.maris.vehiclemanager.Fragments.NotificationFragment;
+import com.example.maris.vehiclemanager.Fragments.SettingFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
 
-    boolean click = false;
+        HomeFragment.OnFragmentInteractionListener,
+        ExpencesFragment.OnFragmentInteractionListener,
+        NotificationFragment.OnFragmentInteractionListener,
+        SettingFragment.OnFragmentInteractionListener,
+        AboutUsFragment.OnFragmentInteractionListener{
+
     private FABToolbarLayout morph;
 
     @Override
@@ -47,24 +58,6 @@ public class MainActivityMenu extends AppCompatActivity
         tres.setOnClickListener(this);
         cuatro.setOnClickListener(this);
 
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                click = !click;
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    Interpolator interpolador = AnimationUtils.loadInterpolator(getBaseContext(),
-                            android.R.interpolator.fast_out_slow_in);
-
-                    view.animate()
-                            .rotation(click ? 45f : 0)
-                            .setInterpolator(interpolador)
-                            .start();
-                }
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -121,23 +114,40 @@ public class MainActivityMenu extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+
+        android.support.v4.app.Fragment miFragment = null;
+        boolean fragmentSeleccionado=false;
+
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gas) {
-
-        } else if (id == R.id.nav_service) {
-
-        } else if (id == R.id.nav_bills) {
+            miFragment = new HomeFragment();
+            fragmentSeleccionado=true;
+        }  else if (id == R.id.nav_expenses) {
+            miFragment = new ExpencesFragment();
+            fragmentSeleccionado=true;
 
         } else if (id == R.id.nav_noti) {
+            miFragment = new NotificationFragment();
+            fragmentSeleccionado=true;
 
         } else if (id == R.id.nav_setting) {
+            miFragment = new SettingFragment();
+            fragmentSeleccionado=true;
 
         } else if (id == R.id.nav_about) {
+            miFragment = new AboutUsFragment();
+            fragmentSeleccionado=true;
 
         }
+
+        if (fragmentSeleccionado){
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -146,6 +156,11 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
