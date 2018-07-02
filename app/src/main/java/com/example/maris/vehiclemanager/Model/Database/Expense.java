@@ -3,12 +3,18 @@ package com.example.maris.vehiclemanager.Model.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import com.example.maris.vehiclemanager.Model.Database.TypeConverters.DateConverter;
+
+import java.util.Date;
 
 /**
  * Database Expense entity
  */
 
 @Entity
+@TypeConverters(DateConverter.class)
 public class Expense {
     @PrimaryKey(autoGenerate = true)
     private int idExp;
@@ -27,9 +33,9 @@ public class Expense {
 
     private String receipt;
 
-    private String date;
+    private Date date;
 
-    public Expense(int idExp, int idCat, int idCar, String expense, float cost, String place, String receipt, String date) {
+    public Expense(int idExp, int idCat, int idCar, String expense, float cost, String place, String receipt, Date date) {
         this.idExp = idExp;
         this.idCat = idCat;
         this.idCar = idCar;
@@ -68,7 +74,7 @@ public class Expense {
         return receipt;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 }

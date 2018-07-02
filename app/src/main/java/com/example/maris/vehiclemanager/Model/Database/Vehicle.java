@@ -15,12 +15,12 @@ public class Vehicle {
     private String name;
     private String model;
     private int year;
-    private double odometer;
+    private long odometer;
     private String plate;
     private String gasoline;
     private boolean isCar;
 
-    public Vehicle(int idCar, String carPic, String name, String model, int year, double odometer, String plate, String gasoline, boolean isCar) {
+    public Vehicle(int idCar, String carPic, String name, String model, int year, long odometer, String plate, String gasoline, boolean isCar) {
         this.idCar = idCar;
         this.carPic = carPic;
         this.name = name;
@@ -52,7 +52,7 @@ public class Vehicle {
         return year;
     }
 
-    public double getOdometer() {
+    public long getOdometer() {
         return odometer;
     }
 

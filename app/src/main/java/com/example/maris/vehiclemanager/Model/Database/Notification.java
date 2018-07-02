@@ -3,12 +3,18 @@ package com.example.maris.vehiclemanager.Model.Database;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import com.example.maris.vehiclemanager.Model.Database.TypeConverters.DateConverter;
+
+import java.util.Date;
 
 /**
  * Database Notification entity
  */
 
 @Entity
+@TypeConverters(DateConverter.class)
 public class Notification {
     @PrimaryKey(autoGenerate = true)
     private int idNot;
@@ -16,12 +22,12 @@ public class Notification {
     @ForeignKey(entity = Expense.class, parentColumns = "idExp", childColumns = "idExp")
     private int idExp;
 
-    private String time;
+    private Date date;
 
-    public Notification(int idNot, int idExp, String time) {
+    public Notification(int idNot, int idExp, Date date) {
         this.idNot = idNot;
         this.idExp = idExp;
-        this.time = time;
+        this.date = date;
     }
 
     public int getIdNot() {
@@ -32,7 +38,7 @@ public class Notification {
         return idExp;
     }
 
-    public String getTime() {
-        return time;
+    public Date getDate() {
+        return date;
     }
 }
