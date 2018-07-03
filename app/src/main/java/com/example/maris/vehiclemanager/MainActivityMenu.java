@@ -3,7 +3,6 @@ package com.example.maris.vehiclemanager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,24 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
 
-import com.example.maris.vehiclemanager.Fragments.AboutUsFragment;
-import com.example.maris.vehiclemanager.Fragments.ExpencesFragment;
-import com.example.maris.vehiclemanager.Fragments.HomeFragment;
-import com.example.maris.vehiclemanager.Fragments.NotificationFragment;
-import com.example.maris.vehiclemanager.Fragments.SettingFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
-
-        HomeFragment.OnFragmentInteractionListener,
-        ExpencesFragment.OnFragmentInteractionListener,
-        NotificationFragment.OnFragmentInteractionListener,
-        SettingFragment.OnFragmentInteractionListener,
-        AboutUsFragment.OnFragmentInteractionListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private FABToolbarLayout morph;
 
@@ -114,36 +100,29 @@ public class MainActivityMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         android.support.v4.app.Fragment miFragment = null;
-        boolean fragmentSeleccionado=false;
 
 
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            miFragment = new HomeFragment();
-            fragmentSeleccionado=true;
+
         }  else if (id == R.id.nav_expenses) {
-            miFragment = new ExpencesFragment();
-            fragmentSeleccionado=true;
+
 
         } else if (id == R.id.nav_noti) {
-            miFragment = new NotificationFragment();
-            fragmentSeleccionado=true;
+
+        } else if (id == R.id.nav_categories) {
+
+        } else if (id == R.id.nav_cars) {
 
         } else if (id == R.id.nav_setting) {
-            miFragment = new SettingFragment();
-            fragmentSeleccionado=true;
 
         } else if (id == R.id.nav_about) {
-            miFragment = new AboutUsFragment();
-            fragmentSeleccionado=true;
 
         }
 
-        if (fragmentSeleccionado){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
-            fragmentSeleccionado = false;
-        }
+        // getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -153,11 +132,6 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
     }
 }
