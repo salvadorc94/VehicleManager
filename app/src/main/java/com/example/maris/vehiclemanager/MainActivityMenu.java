@@ -45,19 +45,17 @@ public class MainActivityMenu extends AppCompatActivity
 
         morph = (FABToolbarLayout) findViewById(R.id.fabtoolbar);
 
-        View uno, dos, tres, cuatro;
+        View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
 
-        uno = findViewById(R.id.uno);
-        dos = findViewById(R.id.dos);
-        cuatro = findViewById(R.id.cuatro);
-        tres = findViewById(R.id.tres);
-
+        toolbar_img_refuel = findViewById(R.id.toolbar_img_refuel);
+        toolbar_img_service = findViewById(R.id.toolbar_img_service);
+        toolbar_img_reminder = findViewById(R.id.toolbar_img_reminder);
+        toolbar_img_expense = findViewById(R.id.toolbar_img_expense);
         fab.setOnClickListener(this);
-        uno.setOnClickListener(this);
-        dos.setOnClickListener(this);
-        tres.setOnClickListener(this);
-        cuatro.setOnClickListener(this);
-
+        toolbar_img_refuel.setOnClickListener(this);
+        toolbar_img_service.setOnClickListener(this);
+        toolbar_img_expense.setOnClickListener(this);
+        toolbar_img_reminder.setOnClickListener(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -143,9 +141,8 @@ public class MainActivityMenu extends AppCompatActivity
         }
 
         if (fragmentSeleccionado){
-
             getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
-
+            fragmentSeleccionado = false;
         }
 
 
