@@ -13,10 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
+        DateFilterFragment.OnFragmentInteractionListener{
 
     private FABToolbarLayout morph;
 
@@ -100,31 +102,29 @@ public class MainActivityMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         android.support.v4.app.Fragment miFragment = null;
-
+        boolean fragmentSeleccionado=false;
 
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            fragmentSeleccionado = true;
         }  else if (id == R.id.nav_expenses) {
-
-
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_noti) {
-
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
-
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
-
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_setting) {
-
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_about) {
-
+            fragmentSeleccionado = true;
         }
 
-        // getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
-
-
-
+        if(fragmentSeleccionado){
+            //getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -132,6 +132,11 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
