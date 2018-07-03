@@ -1,5 +1,6 @@
 package com.example.maris.vehiclemanager;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,7 @@ import android.view.animation.Interpolator;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,ExpensesFragment.OnFragmentInteractionListener {
 
     boolean click = false;
     private FABToolbarLayout morph;
@@ -121,6 +122,8 @@ public class MainActivityMenu extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
+        android.support.v4.app.Fragment miFragment = null;
+
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
@@ -130,6 +133,8 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_service) {
 
         } else if (id == R.id.nav_bills) {
+            miFragment=new ExpensesFragment();
+
 
         } else if (id == R.id.nav_noti) {
 
@@ -138,7 +143,9 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_about) {
 
         }
-
+        if(miFragment!= null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -146,6 +153,11 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
