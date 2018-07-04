@@ -32,11 +32,10 @@ public class MainActivityMenu extends AppCompatActivity
 
     private FABToolbarLayout morph;
 
+    //ImageSwitcher
     ImageButton prev, next;
-
     ImageSwitcher imageSwitcher;
     Integer [] images_about = {R.drawable.about_j, R.drawable.about_m, R.drawable.about_s, R.drawable.about_g};
-
     int i=0; //contador
 
 
@@ -95,14 +94,11 @@ public class MainActivityMenu extends AppCompatActivity
         final Animation in2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in2);
         final Animation out2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out2);
 
-
-
-
-                prev.setOnClickListener(new View.OnClickListener() {
+        prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageSwitcher.setInAnimation(in2);
-                imageSwitcher.setOutAnimation(out2);
+                imageSwitcher.setInAnimation(in);
+                imageSwitcher.setOutAnimation(out);
                 if (i > 0){
                     i--;
                     imageSwitcher.setImageResource(images_about[i]);
@@ -113,8 +109,8 @@ public class MainActivityMenu extends AppCompatActivity
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imageSwitcher.setInAnimation(in);
-                imageSwitcher.setOutAnimation(out);
+                imageSwitcher.setInAnimation(in2);
+                imageSwitcher.setOutAnimation(out2);
                 if (i < images_about.length - 1){
                     i++;
                     imageSwitcher.setImageResource(images_about[i]);
@@ -124,8 +120,8 @@ public class MainActivityMenu extends AppCompatActivity
 
     }
 
-    @Override
-    public void onClick(View v) {
+   @Override
+   public void onClick(View v) {
         if (v.getId() == R.id.fab) {
             morph.show();
         }
