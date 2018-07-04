@@ -22,13 +22,16 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
+import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
 
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
-        DateFilterFragment.OnFragmentInteractionListener{
+        DateFilterFragment.OnFragmentInteractionListener,
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener
+{
 
     private FABToolbarLayout morph;
 
@@ -52,15 +55,25 @@ public class MainActivityMenu extends AppCompatActivity
 
         View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
 
+        View outside = findViewById(R.id.outside_button);
+        outside.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                morph.hide();
+            }
+        });
+
+        /*
         toolbar_img_refuel = findViewById(R.id.toolbar_img_refuel);
         toolbar_img_service = findViewById(R.id.toolbar_img_service);
         toolbar_img_reminder = findViewById(R.id.toolbar_img_reminder);
-        toolbar_img_expense = findViewById(R.id.toolbar_img_expense);
+        toolbar_img_expense = findViewById(R.id.toolbar_img_expense);*/
         fab.setOnClickListener(this);
-        toolbar_img_refuel.setOnClickListener(this);
+
+        /*toolbar_img_refuel.setOnClickListener(this);
         toolbar_img_service.setOnClickListener(this);
         toolbar_img_expense.setOnClickListener(this);
-        toolbar_img_reminder.setOnClickListener(this);
+        toolbar_img_reminder.setOnClickListener(this);*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -125,7 +138,6 @@ public class MainActivityMenu extends AppCompatActivity
         if (v.getId() == R.id.fab) {
             morph.show();
         }
-
         morph.hide();
     }
 
@@ -135,6 +147,7 @@ public class MainActivityMenu extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            morph.hide();
             super.onBackPressed();
         }
     }
@@ -172,23 +185,27 @@ public class MainActivityMenu extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            fragmentSeleccionado = true;
+
         }  else if (id == R.id.nav_expenses) {
-            fragmentSeleccionado = true;
+            //TODO:borrar esto
+            miFragment = new DateFilterFragment();
+            fragmentSeleccionado=true;
         } else if (id == R.id.nav_noti) {
-            fragmentSeleccionado = true;
+
         } else if (id == R.id.nav_categories) {
+            //TODO: borrar x2
+            miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
-            fragmentSeleccionado = true;
+
         } else if (id == R.id.nav_setting) {
-            fragmentSeleccionado = true;
+
         } else if (id == R.id.nav_about) {
-            fragmentSeleccionado = true;
+
         }
 
         if(fragmentSeleccionado){
-            //getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
