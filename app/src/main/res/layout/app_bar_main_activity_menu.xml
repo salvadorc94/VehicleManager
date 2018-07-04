@@ -34,7 +34,7 @@
         app:verticalMargin="@dimen/fab_margin">
 
 
-        <include layout="@layout/activity_editvehicle" />
+        <include layout="@layout/content_main_activity_menu" />
 
 
         <RelativeLayout

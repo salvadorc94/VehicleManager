@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutUs"
+    android:background="@color/colorPrimaryLight">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/foto_perfil"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+
+        app:civ_border_color="@color/colorSecondaryText"
+        app:civ_border_width="3dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/foto_perfil"
+        android:layout_centerHorizontal="true"
+        android:text="Jaime Daniel Alvarenga Rossell\nIng. Informática"
+        android:textAlignment="center"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="20sp" />
+    <LinearLayout
+        android:id="@+id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginTop="30dp"
+        android:paddingRight="10dp"
+        android:layout_centerHorizontal="true">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            app:civ_border_color="@color/colorSecondaryText"
+            app:civ_border_width="3dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/facebook" />
+        <TextView
+            android:id="@+id/fb_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="JD Alvarenga"
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryText"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/github"/>
+        <TextView
+            android:id="@+id/git_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="JDAlvarenga"
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryText"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/last_linear"
+        android:layout_below="@id/lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/tel"
+            />
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:text="73033815"
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryText"/>
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:src="@drawable/correo"
+            />
+        <TextView
+            android:id="@+id/mail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:layout_marginRight="8dp"
+            android:textAlignment="center"
+            android:text="00069216@uca.edu.sv"
+            android:layout_gravity="center"
+            android:textSize="15sp"
+            android:textColor="@color/colorSecondaryText"/>
+
+    </LinearLayout>
+</RelativeLayout>
