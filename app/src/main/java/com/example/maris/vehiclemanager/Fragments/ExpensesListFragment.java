@@ -1,5 +1,6 @@
 package com.example.maris.vehiclemanager.Fragments;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Adapters.ExpensesAdapter;
+import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
 import com.example.maris.vehiclemanager.R;
 
@@ -34,6 +36,7 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
 //    private static final String ARG_PARAM2 = "param2";
 
 
+    private AppViewModel viewModel;
     private OnExpensesListFragmentInteractionListener mListener;
     private ExpensesAdapter adapter;
     private RecyclerView recycler;
@@ -66,6 +69,8 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
 //            mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+
     }
 
     @Override
@@ -74,12 +79,12 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_expenses_list, container, false);
 
-        //TODO: get data from db
-        List<Expense> data = new ArrayList<>();
-        data.add(new Expense(1,1, 1,"Fuel", 20, "Shell", "Super", new Date()));
-        data.add(new Expense(2,2, 1,"Tires", 150, "Shell", "24\"", new Date()));
-        data.add(new Expense(3,3, 1,"Oil", 17, "Shell", "Del reciclado", new Date()));
-        adapter = new ExpensesAdapter(this, data);
+        adapter = new ExpensesAdapter(this, null);
+
+        //Set data from database flowable
+        viewModel.getAllExpenses().subscribe(expenses -> {
+            adapter.setData(expenses);
+        });
 
         recycler = v.findViewById(R.id.expenses_recycler_list);
         recycler.setAdapter(adapter);
