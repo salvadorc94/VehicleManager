@@ -33,4 +33,7 @@ dependencies {
 
     //FloatingActionButton-Toolbar
     implementation 'com.github.fafaldo:fab-toolbar:1.2.0'
+
+    //Cardviews
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
