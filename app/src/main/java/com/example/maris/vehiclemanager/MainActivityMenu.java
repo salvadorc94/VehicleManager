@@ -13,10 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
+        DateFilterFragment.OnFragmentInteractionListener{
 
     private FABToolbarLayout morph;
 
@@ -33,15 +35,25 @@ public class MainActivityMenu extends AppCompatActivity
 
         View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
 
+        View outside = findViewById(R.id.outside_button);
+        outside.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                morph.hide();
+            }
+        });
+
+        /*
         toolbar_img_refuel = findViewById(R.id.toolbar_img_refuel);
         toolbar_img_service = findViewById(R.id.toolbar_img_service);
         toolbar_img_reminder = findViewById(R.id.toolbar_img_reminder);
-        toolbar_img_expense = findViewById(R.id.toolbar_img_expense);
+        toolbar_img_expense = findViewById(R.id.toolbar_img_expense);*/
         fab.setOnClickListener(this);
-        toolbar_img_refuel.setOnClickListener(this);
+
+        /*toolbar_img_refuel.setOnClickListener(this);
         toolbar_img_service.setOnClickListener(this);
         toolbar_img_expense.setOnClickListener(this);
-        toolbar_img_reminder.setOnClickListener(this);
+        toolbar_img_reminder.setOnClickListener(this);*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -58,7 +70,6 @@ public class MainActivityMenu extends AppCompatActivity
         if (v.getId() == R.id.fab) {
             morph.show();
         }
-
         morph.hide();
     }
 
@@ -68,6 +79,7 @@ public class MainActivityMenu extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            morph.hide();
             super.onBackPressed();
         }
     }
@@ -100,15 +112,16 @@ public class MainActivityMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
 
         android.support.v4.app.Fragment miFragment = null;
-
+        boolean fragmentSeleccionado=false;
 
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
 
         }  else if (id == R.id.nav_expenses) {
-
-
+            //TODO:borrar esto
+            miFragment = new DateFilterFragment();
+            fragmentSeleccionado=true;
         } else if (id == R.id.nav_noti) {
 
         } else if (id == R.id.nav_categories) {
@@ -121,10 +134,9 @@ public class MainActivityMenu extends AppCompatActivity
 
         }
 
-        // getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
-
-
-
+        if(fragmentSeleccionado){
+            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -132,6 +144,11 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
