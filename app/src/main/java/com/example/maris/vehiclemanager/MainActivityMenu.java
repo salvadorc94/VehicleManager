@@ -14,11 +14,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
+import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
-        DateFilterFragment.OnFragmentInteractionListener{
+        DateFilterFragment.OnFragmentInteractionListener,
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener
+{
 
     private FABToolbarLayout morph;
 
@@ -125,7 +128,9 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_noti) {
 
         } else if (id == R.id.nav_categories) {
-
+            //TODO: borrar x2
+            miFragment = new ExpensesListFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
 
         } else if (id == R.id.nav_setting) {

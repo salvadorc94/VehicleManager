@@ -84,6 +84,12 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
             name = itemView.findViewById(R.id.item_expenses_txt_name);
             cost = itemView.findViewById(R.id.item_expenses_txt_cost);
             date = itemView.findViewById(R.id.item_expenses_txt_date);
+
+            picture = itemView.findViewById(R.id.item_expenses_img_show_picture);
+            edit = itemView.findViewById(R.id.item_expenses_img_edit);
+            delete = itemView.findViewById(R.id.item_expenses_img_delete);
+
+            category = itemView.findViewById(R.id.item_expenses_frame_category);
         }
     }
 
