@@ -37,6 +37,7 @@
     <string name="gasoline">Gasoline:</string>
     <string name="aceppt">Aceppt</string>
     <string name="actual_car">Actual Car:</string>
+    <string name="edit_text_date_hint">dd/mm/yyyy</string>
 
 
 </resources>
