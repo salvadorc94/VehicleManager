@@ -1,17 +1,29 @@
 package com.example.maris.vehiclemanager;
 
+import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -27,7 +39,12 @@ import static android.app.Activity.RESULT_OK;
 public class ExpensesFragment extends Fragment {
     ImageView image;
     Button btn;
+    int n=0;
+    private Uri imageUri;
+    String mCurrentPhotoPath;
     public static final int REQUEST_IMAGE_CAPTURE = 1;
+    public static final int REQUEST_TAKE_PHOTO = 1;
+    public static final int TAKE_PICTURE = 1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,27 +96,49 @@ public class ExpensesFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callCamera();
+                takePhoto();
             }
         });
         // Inflate the layout for this fragment
         return view;
     }
-    private void callCamera(){
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        }
+    public void takePhoto(){
+        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String nameFile  = timeStamp+".jpg";
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        File photo = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
+
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(photo));
+        imageUri = Uri.fromFile(photo);
+        startActivityForResult(intent, TAKE_PICTURE);
 
     }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            image.setImageBitmap(imageBitmap);
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case TAKE_PICTURE:
+                if (resultCode == Activity.RESULT_OK){
+                    Uri selectedImage = imageUri;
+                    getActivity().getContentResolver().notifyChange(selectedImage,null);
+                    ContentResolver cr = getActivity().getContentResolver();
+                    Bitmap bitmap;
+                    try{
+                        bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr,selectedImage);
+                        image.setImageBitmap(bitmap);
+                        Toast.makeText(getContext(),selectedImage.toString(),Toast.LENGTH_SHORT).show();
+                        Log.d("lel0",selectedImage.toString());
+
+                    }catch (Exception e){
+                        Toast.makeText(getContext(),"nope",Toast.LENGTH_SHORT).show();
+                    }
+                }
         }
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
