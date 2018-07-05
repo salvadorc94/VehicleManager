@@ -15,10 +15,12 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.ViewSwitcher;
 
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
@@ -35,11 +37,13 @@ public class MainActivityMenu extends AppCompatActivity
 
     private FABToolbarLayout morph;
 
-    //ImageSwitcher
+    /*//ImageSwitcher
     ImageButton prev, next;
     ImageSwitcher imageSwitcher;
     Integer [] images_about = {R.drawable.about_j, R.drawable.about_m, R.drawable.about_s, R.drawable.about_g};
-    int i=0; //contador
+    int i=0; //contador*/
+
+    Spinner spinner;
 
 
     @Override
@@ -84,7 +88,7 @@ public class MainActivityMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
+/*
         //Inicializando para ImageSwitcher
         imageSwitcher = findViewById(R.id.imgsw);
         prev = findViewById(R.id.btn_prev_about_us);
@@ -129,7 +133,7 @@ public class MainActivityMenu extends AppCompatActivity
                     imageSwitcher.setImageResource(images_about[i]);
                 }
             }
-        });
+        });*/
 
     }
 

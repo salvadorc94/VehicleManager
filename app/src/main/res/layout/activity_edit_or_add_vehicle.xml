@@ -15,6 +15,7 @@
         android:layout_margin="5dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/photo_car_add_edit_v"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/carro"
@@ -23,7 +24,7 @@
             />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_admin_v"
+            android:id="@+id/fab_add_edit_v"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
@@ -52,6 +53,7 @@
                 android:text="Nombre:" />
 
             <EditText
+                android:id="@+id/id_name_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
@@ -70,6 +72,7 @@
                 android:text="Modelo:"/>
 
             <EditText
+                android:id="@+id/id_model_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
@@ -88,6 +91,7 @@
                 android:text="Año:"/>
 
             <EditText
+                android:id="@+id/id_year_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -107,6 +111,7 @@
                 android:text="Odómetro:"/>
 
             <EditText
+                android:id="@+id/id_odom_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -126,6 +131,7 @@
                 android:text="Placa:"/>
 
             <EditText
+                android:id="@+id/id_placa_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -145,16 +151,19 @@
                 android:text="Gasolina:"/>
 
             <EditText
+                android:id="@+id/spinner_add_edit_v"
                 android:layout_width="0dp"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:layout_weight="2" />
+                />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginVertical="5dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -164,6 +173,7 @@
                 android:layout_gravity="center"/>
 
             <CheckBox
+                android:id="@+id/id_cheakbox_add_edit_v"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
@@ -179,6 +189,7 @@
         android:gravity="center">
 
         <Button
+            android:id="@+id/btn_accept_add_edit_v"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aceptar" />
