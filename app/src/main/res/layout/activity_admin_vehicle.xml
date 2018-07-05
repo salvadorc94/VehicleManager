@@ -27,7 +27,7 @@
                 android:id="@+id/id_name_admin_v"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CAR NAME"
+                android:text="@string/car_name"
                 android:layout_margin="10dp"/>
 
             <LinearLayout
@@ -42,21 +42,21 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Brand"/>
+                    android:text="@string/brand"/>
 
                 <TextView
                     android:id="@+id/id_model_admin_v"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
-                    android:text="Model"/>
+                    android:text="@string/model"/>
 
                 <TextView
                     android:id="@+id/id_year_admin_v"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Year"/>
+                    android:text="@string/year"/>
 
             </LinearLayout>
 
