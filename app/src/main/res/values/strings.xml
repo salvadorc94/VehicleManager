@@ -20,8 +20,13 @@
     <string name="item_txt_cars">Cars</string>
     <string name="textview_txt_carname">Car name</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="date_filter_spinner">
+        <item>Month</item>
+        <item>Year</item>
+        <item>Day</item>
+    </string-array>
+
     <string name="car_name">CAR NAME</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>

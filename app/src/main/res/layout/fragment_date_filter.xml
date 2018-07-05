@@ -17,14 +17,17 @@
             android:background="@drawable/date_picker"
             />
         <EditText
+            android:id="@+id/fragment_date_filter_edit_text_date"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
         <Spinner
+            android:id="@+id/fragment_date_filter_date_spinner"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
         <Spinner
+            android:id="@+id/fragment_date_filter_category_spinner"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"/>
