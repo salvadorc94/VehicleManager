@@ -25,6 +25,7 @@ import android.widget.ViewSwitcher;
 
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
+import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
@@ -32,7 +33,8 @@ import static android.view.animation.AnimationUtils.loadAnimation;
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
-        ExpensesListFragment.OnExpensesListFragmentInteractionListener
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener,
+        VehiclesListFragment.OnVehiclesListFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
@@ -188,6 +190,7 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
+        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
 
         }  else if (id == R.id.nav_expenses) {
@@ -201,7 +204,8 @@ public class MainActivityMenu extends AppCompatActivity
             miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
-
+            miFragment = new VehiclesListFragment();
+            fragmentSeleccionado = true;
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
