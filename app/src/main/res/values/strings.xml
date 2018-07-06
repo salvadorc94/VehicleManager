@@ -39,5 +39,8 @@
     <string name="actual_car">Actual Car:</string>
     <string name="edit_text_date_hint">dd/mm/yyyy</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

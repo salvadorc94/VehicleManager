@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.ViewSwitcher;
 
+import com.example.maris.vehiclemanager.Fragments.CategoriesListFragment;
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
@@ -34,7 +35,8 @@ public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
         ExpensesListFragment.OnExpensesListFragmentInteractionListener,
-        VehiclesListFragment.OnVehiclesListFragmentInteractionListener
+        VehiclesListFragment.OnVehiclesListFragmentInteractionListener,
+        CategoriesListFragment.OnCategoriesListFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
