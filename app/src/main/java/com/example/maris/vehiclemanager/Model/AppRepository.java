@@ -6,7 +6,6 @@ import com.example.maris.vehiclemanager.Database.AppDAO;
 import com.example.maris.vehiclemanager.Database.AppRoomDatabase;
 import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
-import com.example.maris.vehiclemanager.Model.Database.Notification;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
 import java.util.List;
@@ -26,7 +25,6 @@ public class AppRepository {
     private Flowable<List<Expense>> expensesListFlowable;
     private Flowable<List<Category>> categoriesListFlowable;
     private Flowable<List<Vehicle>> vehiclesListFlowable;
-    private Flowable<List<Notification>> notificationsListFlowable;
 
     private AppDAO mDao;
     public static AppRepository getInstance(Application application) {
@@ -163,47 +161,4 @@ public class AppRepository {
         return mDao.getCategory(idCategory)
                 .observeOn(Schedulers.io());
     }
-
-
-    
-//---------Notifications---------
-    public Flowable<List<Notification>> getNotifications() {
-        if(this.notificationsListFlowable == null)
-            notificationsListFlowable = mDao.getAllNotifications()
-                    .observeOn(Schedulers.io());
-        return notificationsListFlowable;
-    }
-    
-    public Completable insertOrUpdateNotifications(Notification... notifications) {
-        return Completable.fromCallable(() -> {
-                mDao.insertOrUpdateNotifications(notifications);
-                return null;
-        }).observeOn(Schedulers.io());
-    }
-    public Completable insertOrUpdateNotifications(List<Notification> notifications) {
-        return Completable.fromCallable(() -> {
-                mDao.insertOrUpdateNotifications(notifications);
-                return null;
-        }).observeOn(Schedulers.io());
-    }
-    
-    public Completable deleteNotifications(Notification... notifications) {
-        return Completable.fromCallable(() -> {
-                mDao.deleteNotifications(notifications);
-                return null;
-        }).observeOn(Schedulers.io());
-    }
-    public Completable deleteNotifications(List<Notification> notifications) {
-        return Completable.fromCallable(() -> {
-                mDao.deleteNotifications(notifications);
-                return null;
-        }).observeOn(Schedulers.io());
-    }
-    
-    public Single<Notification> getNotification(int idNotification) {
-        return mDao.getNotification(idNotification)
-                .observeOn(Schedulers.io());
-    }
-    
-    
 }

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
-import com.example.maris.vehiclemanager.Model.Database.Notification;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
 import java.util.List;
@@ -119,37 +118,6 @@ public class AppViewModel extends AndroidViewModel{
     
     public Single<Category> getCategory(int idCategory) {
         return mRepository.getCategory(idCategory)
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-    
-    
-    
-//    --------------Notifications--------------
-    public Flowable<List<Notification>> getAllNotifications() {
-        return this.mRepository.getNotifications()
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-    
-    public Completable insertOrUpdateNotifications(Notification... notifications) {
-        return mRepository.insertOrUpdateNotifications(notifications)
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-    public Completable insertOrUpdateNotifications(List<Notification> notifications) {
-        return mRepository.insertOrUpdateNotifications(notifications)
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-    
-    public Completable deleteNotifications(Notification... notifications) {
-        return mRepository.deleteNotifications(notifications)
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-    public Completable deleteNotifications(List<Notification> notifications) {
-        return mRepository.deleteNotifications(notifications)
-                .subscribeOn(AndroidSchedulers.mainThread());
-    }
-
-    public Single<Notification> getNotification(int idNotification) {
-        return mRepository.getNotification(idNotification)
                 .subscribeOn(AndroidSchedulers.mainThread());
     }
 }

@@ -8,7 +8,6 @@ import android.arch.persistence.room.Query;
 
 import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
-import com.example.maris.vehiclemanager.Model.Database.Notification;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
 import java.util.List;
@@ -79,26 +78,5 @@ public interface AppDAO  {
 
     @Query("SELECT * FROM category WHERE idCat = :idCategory")
     Single<Category> getCategory(int idCategory);
-
-
-    //Notifications
-    @Query("SELECT * FROM notification")
-    Flowable<List<Notification>> getAllNotifications();
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdateNotifications(Notification... notifications);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertOrUpdateNotifications(List<Notification> notifications);
-
-    @Delete
-    void deleteNotifications(Notification... notifications);
-
-    @Delete
-    void deleteNotifications(List<Notification> notifications);
-
-    @Query("SELECT * FROM notification WHERE idNot = :idNotification")
-    Single<Notification> getNotification(int idNotification);
-
 
 }
