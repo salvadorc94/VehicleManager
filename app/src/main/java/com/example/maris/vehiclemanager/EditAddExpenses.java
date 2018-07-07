@@ -45,7 +45,7 @@ public class EditAddExpenses extends AppCompatActivity {
         time1 =  findViewById(R.id.id_rem1_add_edit_exp);
         time2  = findViewById(R.id.id_rem2_add_edit_exp);
         image = findViewById(R.id.id_photo_add_edit_exp);
-//
+
 //        Intent intent = getIntent();
 //        expense =  intent.hasExtra(EXTRA_EXPENSE)?(Expense)intent.getParcelableExtra(EXTRA_EXPENSE):(new Expense()) ;
         takePic =  findViewById(R.id.id_takePic_add_edit_exp);

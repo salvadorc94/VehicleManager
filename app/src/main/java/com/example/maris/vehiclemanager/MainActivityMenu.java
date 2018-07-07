@@ -1,6 +1,5 @@
 package com.example.maris.vehiclemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -37,9 +35,7 @@ import static android.view.animation.AnimationUtils.loadAnimation;
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
-        ExpensesListFragment.OnExpensesListFragmentInteractionListener,
-        VehiclesListFragment.OnVehiclesListFragmentInteractionListener,
-        CategoriesListFragment.OnCategoriesListFragmentInteractionListener
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
@@ -195,7 +191,6 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
-        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
 
         }  else if (id == R.id.nav_expenses) {
@@ -209,16 +204,11 @@ public class MainActivityMenu extends AppCompatActivity
             miFragment = new CategoriesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
-<<<<<<< HEAD
-
-        } else if (id == R.id.nav_new_expense) {
-            Intent intent =  new Intent(this, EditAddExpenses.class);
-            startActivity(intent);
-
-=======
             miFragment = new VehiclesListFragment();
             fragmentSeleccionado = true;
->>>>>>> origin/diseño
+        } else if (id == R.id.nav_new_expense) {
+            Intent intent = new Intent(this,EditAddExpenses.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
