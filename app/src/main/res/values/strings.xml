@@ -43,7 +43,7 @@
     <string name="year">Year</string>
     <string name="name">Name:</string>
     <string name="odometer">Odometer:</string>
-    <string name="cardplate">Cardplate:</string>
+    <string name="carplate">Carplate:</string>
     <string name="gasoline">Gasoline:</string>
     <string name="aceppt">Aceppt</string>
     <string name="actual_car">Actual Car:</string>
