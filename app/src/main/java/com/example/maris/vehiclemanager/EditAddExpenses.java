@@ -52,6 +52,7 @@ public class EditAddExpenses extends AppCompatActivity {
         takePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 takePhoto();
             }
         });
@@ -71,10 +72,15 @@ public class EditAddExpenses extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setDataAndType(imageUri, "image/*");
-                startActivity(intent);
+
+                if (image.getDrawable() == null){
+                    Toast.makeText(getApplicationContext(),"Take a Picture",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(imageUri, "image/*");
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -83,7 +89,6 @@ public class EditAddExpenses extends AppCompatActivity {
         String nameFile  = timeStamp+".jpg";
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
-
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
