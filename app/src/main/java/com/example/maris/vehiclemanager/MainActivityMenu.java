@@ -35,7 +35,9 @@ import static android.view.animation.AnimationUtils.loadAnimation;
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
-        ExpensesListFragment.OnExpensesListFragmentInteractionListener
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener,
+        CategoriesListFragment.OnCategoriesListFragmentInteractionListener,
+        VehiclesListFragment.OnVehiclesListFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
