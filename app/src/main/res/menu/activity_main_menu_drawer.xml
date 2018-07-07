@@ -25,6 +25,10 @@
             android:id="@+id/nav_cars"
             android:icon="@drawable/ic_menu_car"
             android:title="@string/item_txt_cars"/>
+        <item
+            android:id="@+id/nav_new_expense"
+            android:icon="@drawable/ic_monetization_on_black_24dp"
+            android:title="Add Expense"/>
     </group>
 
     <item android:title="@string/item_txt_tools">

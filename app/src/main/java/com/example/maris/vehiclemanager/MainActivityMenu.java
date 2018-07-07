@@ -1,5 +1,6 @@
 package com.example.maris.vehiclemanager;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,9 +35,7 @@ import static android.view.animation.AnimationUtils.loadAnimation;
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
-        ExpensesListFragment.OnExpensesListFragmentInteractionListener,
-        VehiclesListFragment.OnVehiclesListFragmentInteractionListener,
-        CategoriesListFragment.OnCategoriesListFragmentInteractionListener
+        ExpensesListFragment.OnExpensesListFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
@@ -192,7 +191,6 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
-        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
 
         }  else if (id == R.id.nav_expenses) {
@@ -208,6 +206,9 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_cars) {
             miFragment = new VehiclesListFragment();
             fragmentSeleccionado = true;
+        } else if (id == R.id.nav_new_expense) {
+            Intent intent = new Intent(this,EditAddExpenses.class);
+            startActivity(intent);
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
