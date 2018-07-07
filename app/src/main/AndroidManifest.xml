@@ -22,7 +22,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AdminVehicle" />
         <activity android:name=".EditorAddVehicle" />
-        <activity android:name=".AboutUs"></activity>
+        <activity android:name=".AboutUs" />
+        <activity android:name=".EditAddExpenses"></activity>
     </application>
 
 </manifest>

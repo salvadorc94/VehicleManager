@@ -1,5 +1,7 @@
 package com.example.maris.vehiclemanager;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
@@ -201,6 +204,10 @@ public class MainActivityMenu extends AppCompatActivity
             miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
+
+        } else if (id == R.id.nav_new_expense) {
+            Intent intent =  new Intent(this, EditAddExpenses.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_setting) {
 

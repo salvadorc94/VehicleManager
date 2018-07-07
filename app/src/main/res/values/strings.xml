@@ -26,6 +26,16 @@
         <item>Year</item>
         <item>Day</item>
     </string-array>
+    <string-array name="time_reminder_spinner">
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>5 hours</item>
+    </string-array>
+    <string-array name="time_reminder2_spinner">
+        <item>1 day</item>
+        <item>3 days</item>
+        <item>5 days</item>
+    </string-array>
 
     <string name="car_name">CAR NAME</string>
     <string name="brand">Brand</string>
