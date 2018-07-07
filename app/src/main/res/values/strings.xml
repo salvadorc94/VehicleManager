@@ -37,17 +37,24 @@
         <item>5 days</item>
     </string-array>
 
+    <string-array name="selection_gallery_or_camara">
+        <item>Gallery</item>
+        <item>Camara</item>
+    </string-array>
+
     <string name="car_name">CAR NAME</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>
     <string name="year">Year</string>
     <string name="name">Name:</string>
     <string name="odometer">Odometer:</string>
-    <string name="cardplate">Cardplate:</string>
+    <string name="carplate">Carplate:</string>
     <string name="gasoline">Gasoline:</string>
     <string name="aceppt">Aceppt</string>
     <string name="actual_car">Actual Car:</string>
     <string name="edit_text_date_hint">dd/mm/yyyy</string>
+    <string name="cancel">cancel</string>
+    <string name="select_option">Select option...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

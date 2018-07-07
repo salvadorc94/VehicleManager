@@ -29,4 +29,6 @@
         <activity android:name=".EditAddExpenses"></activity>
     </application>
 
+
+
 </manifest>
