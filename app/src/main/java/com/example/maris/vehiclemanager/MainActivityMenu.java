@@ -1,6 +1,5 @@
 package com.example.maris.vehiclemanager;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +26,7 @@ import android.widget.ViewSwitcher;
 import com.example.maris.vehiclemanager.Fragments.CategoriesListFragment;
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
+import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
@@ -36,8 +36,9 @@ public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
         ExpensesListFragment.OnExpensesListFragmentInteractionListener,
+        VehiclesListFragment.OnVehiclesListFragmentInteractionListener,
         CategoriesListFragment.OnCategoriesListFragmentInteractionListener,
-        VehiclesListFragment.OnVehiclesListFragmentInteractionListener
+        HomeFragment.OnFragmentInteractionListener
 {
 
     private FABToolbarLayout morph;
@@ -139,6 +140,7 @@ public class MainActivityMenu extends AppCompatActivity
                 }
             }
         });*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,new HomeFragment()).commit();
 
     }
 
@@ -193,24 +195,24 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
+        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
-
+            miFragment = new HomeFragment();
+            fragmentSeleccionado=true;
         }  else if (id == R.id.nav_expenses) {
             //TODO:borrar esto
             miFragment = new DateFilterFragment();
             fragmentSeleccionado=true;
         } else if (id == R.id.nav_noti) {
+            //TODO: borrar x2
             miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
             miFragment = new CategoriesListFragment();
-            fragmentSeleccionado = true;
+            fragmentSeleccionado=true;
         } else if (id == R.id.nav_cars) {
             miFragment = new VehiclesListFragment();
             fragmentSeleccionado = true;
-        } else if (id == R.id.nav_new_expense) {
-            Intent intent = new Intent(this,EditAddExpenses.class);
-            startActivity(intent);
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
