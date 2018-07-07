@@ -9,18 +9,15 @@ import android.os.AsyncTask;
 
 import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
-import com.example.maris.vehiclemanager.Model.Database.Notification;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Global Database
  */
 
-@Database(entities = {Category.class, Vehicle.class, Expense.class, Notification.class}, version = 1)
+@Database(entities = {Category.class, Vehicle.class, Expense.class}, version = 1)
 public abstract class AppRoomDatabase extends RoomDatabase{
 
     private static AppRoomDatabase INSTANCE;
