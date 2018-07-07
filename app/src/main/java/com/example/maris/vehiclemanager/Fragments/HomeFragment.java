@@ -15,9 +15,14 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.github.mikephil.charting.utils.ColorTemplate.colorWithAlpha;
+import static com.github.mikephil.charting.utils.ColorTemplate.createColors;
+import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +40,14 @@ public class HomeFragment extends Fragment {
     /*private String mParam1;
     private String mParam2;
     */
+
+    //Arreglo de colores para el PieChart //TODO: Escoger mejores colores para el piechart xd
+    public static final int[] piechartColors ={
+            rgb("#dd2c00"), rgb("#b71c1c"), rgb("#880e4f"), rgb("#7b1fa2"), rgb("#4527a0"),
+            rgb("#1a237e"), rgb("#1565c0"), rgb("#006064"), rgb("#1b5e20"), rgb("#827717"),
+            rgb("#4e342e"), rgb("#424242"), rgb("#263238")
+    };
+
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() {
@@ -75,10 +88,14 @@ public class HomeFragment extends Fragment {
         //Llenas la lista con PieEntry
         entries.add(new PieEntry(18.5f, "Category1"));
         entries.add(new PieEntry(26.7f, "Category2"));
+        entries.add(new PieEntry(18.5f, "Category1"));
+        entries.add(new PieEntry(26.7f, "Category2"));
+        entries.add(new PieEntry(18.5f, "Category1"));
+
         //Se crea un dataset
         PieDataSet set = new PieDataSet(entries, "Expenses");
-        /*Poner colores*/ //TODO:Decidir que colores utilizar en la gráfica
-        set.setColors(new int[]{R.color.colorAccent, R.color.colorPrimary},v.getContext());
+        /*Poner colores*/
+        set.setColors(piechartColors);
         //Se asigna el dataset al piedata
         PieData data = new PieData(set);
         //Obtengo la descripcion
