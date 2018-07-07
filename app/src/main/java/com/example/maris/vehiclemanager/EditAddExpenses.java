@@ -62,6 +62,15 @@ public class EditAddExpenses extends AppCompatActivity {
         // Apply the adapter to the spinner
         time1.setAdapter(adapter);
 
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setDataAndType(imageUri, "image/*");
+                startActivity(intent);
+            }
+        });
     }
     public void takePhoto(){
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
