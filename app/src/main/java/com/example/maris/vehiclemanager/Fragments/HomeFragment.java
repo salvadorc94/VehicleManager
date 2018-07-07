@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Category;
+import com.example.maris.vehiclemanager.Model.Database.Expense;
 import com.example.maris.vehiclemanager.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -26,7 +28,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
@@ -54,6 +58,7 @@ public class HomeFragment extends Fragment {
     private AppViewModel viewModel;
     //Entradas del PIECHART una lista de PieEntry
     List<PieEntry> entries = new ArrayList<>();
+    private HashMap<Integer, Float> categoryTotals;
     private float total=0;
 
     //Arreglo de colores para el PieChart por si se quieren usar personalizados.
@@ -97,44 +102,67 @@ public class HomeFragment extends Fragment {
 
         //Obtienes el chart
         PieChart piechart = v.findViewById(R.id.pie_chart);
-        //TODO: llenar el PieEntry con las categorias de la App y asignar dinámicamente los values.
-        viewModel.getAllExpenses()
-                .first(new ArrayList<>())
-                .subscribe((expenses, throwable)->{
-                    for(int i=0 ;i<expenses.size();i++){
-                        total = total + expenses.get(i).getCost();
-                        Log.d("PPPPP",total+"Dentro");
-                    }
-                });
 
-        Log.d("PPPPP","Total:"+total);
+        //Contador de total de categoria
+        viewModel.getAllExpenses().subscribe(expenses -> {
+            categoryTotals = new HashMap<>();
 
-        //Llenas la lista con PieEntry
-        entries.add(new PieEntry(18.5f, "Category1"));
-        entries.add(new PieEntry(26.7f, "Category2"));
-        entries.add(new PieEntry(18.5f, "Category1"));
-        entries.add(new PieEntry(26.7f, "Category2"));
-        entries.add(new PieEntry(18.5f, "Category1"));
+            for (Expense expense : expenses) {
+                Float previousValue = 0f;
+                if (categoryTotals.containsKey(expense.getIdCat())) {
+                    previousValue = categoryTotals.get(expense.getIdCat());
+                }
+                categoryTotals.put(expense.getIdCat(),previousValue+ expense.getCost());
+            }
 
-        //Se crea un dataset
-        PieDataSet set = new PieDataSet(entries, "Expenses");
-        /*Poner colores*/
-        set.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        //Se asigna el dataset al piedata
-        PieData data = new PieData(set);
-        //Obtengo la descripcion
-        Description description = piechart.getDescription();
-        description.setEnabled(false);
-        //Poner datos
-        piechart.setData(data);
-        //Obtener legendas para modificarlas
-        Legend legend = piechart.getLegend();
-        //Para no mostrarlas
-        legend.setEnabled(false);
-        //Refresh De manera dinámica
-        piechart.notifyDataSetChanged();
-        //Refrescar
-        piechart.invalidate(); // refresh
+            viewModel.getAllCategories()
+                    .first(new ArrayList<>())
+                    .subscribe((categories, throwable) -> {
+                        if (throwable == null) {
+                            entries = new ArrayList<>();
+                            for (Category category : categories) {
+                                if (categoryTotals.containsKey(category.getIdCat())) {
+                                    entries.add(new PieEntry(categoryTotals.get(category.getIdCat()), category.getCategory().toString()));
+                                }
+                            }
+                            if (categoryTotals.containsKey(0)) {
+                                //TODO: move 'default_no_category_name' to resources (Others)
+                                entries.add(new PieEntry(categoryTotals.get(0), "Others"));
+                            }
+
+                            //Se crea un dataset
+                            PieDataSet set = new PieDataSet(entries, "Expenses");
+                            /*Poner colores*/
+                            set.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                            //Se asigna el dataset al piedata
+                            PieData data = new PieData(set);
+                            //Obtengo la descripcion
+                            Description description = piechart.getDescription();
+                            description.setEnabled(false);
+                            //Poner datos
+                            piechart.setData(data);
+                            //Obtener legendas para modificarlas
+                            Legend legend = piechart.getLegend();
+                            //Para no mostrarlas
+                            legend.setEnabled(false);
+                            //Refresh De manera dinámica
+                            piechart.notifyDataSetChanged();
+                            //Refrescar
+                            piechart.invalidate(); // refresh
+                        }
+
+                        else {
+                            //TODO: move to resources
+                            Toast.makeText(this.getContext(), "Unable to load data", Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+
+        });
+
+
+
+
 
         return v;
     }
