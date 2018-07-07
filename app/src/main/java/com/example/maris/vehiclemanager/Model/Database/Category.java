@@ -30,6 +30,15 @@ public class Category implements Parcelable{
         type = in.readString();
     }
 
+    /**
+     * A constructor that sets the idCat to 0.
+     * Be sure to fill all other values before trying to insert to database, otherwise unexpected behavior may present.
+     */
+    @Ignore
+    public Category(){
+        this.idCat = 0;
+    }
+
     @Ignore
     public static final Creator<Category> CREATOR = new Creator<Category>() {
         @Override

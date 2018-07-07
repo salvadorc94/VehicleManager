@@ -61,6 +61,15 @@ public class Expense implements Parcelable{
         date = DateConverter.toDate(Long.parseLong(in.readString()));
     }
 
+    /**
+     * A constructor that sets the idExp to 0.
+     * Be sure to fill all other values before trying to insert to database, otherwise unexpected behavior may present.
+     */
+    @Ignore
+    public Expense(){
+        this.idExp = 0;
+    }
+
 
     public int getIdExp() {
         return idExp;

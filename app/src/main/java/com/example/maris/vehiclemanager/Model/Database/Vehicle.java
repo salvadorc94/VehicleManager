@@ -48,6 +48,15 @@ public class Vehicle implements Parcelable{
         isCar = in.readByte() != 0;
     }
 
+    /**
+     * A constructor that sets the idCar to 0.
+     * Be sure to fill all other values before trying to insert to database, otherwise unexpected behavior may present.
+     */
+    @Ignore
+    public Vehicle(){
+        this.idCar = 0;
+    }
+
     @Ignore
     public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
         @Override
