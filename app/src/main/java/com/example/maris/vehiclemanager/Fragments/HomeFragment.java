@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -40,6 +41,10 @@ public class HomeFragment extends Fragment {
     /*private String mParam1;
     private String mParam2;
     */
+    //ViewModel
+    private AppViewModel viewModel;
+    //Entradas del chart una lista
+    List<PieEntry> entries = new ArrayList<>();
 
     //Arreglo de colores para el PieChart //TODO: Escoger mejores colores para el piechart xd
     public static final int[] piechartColors ={
@@ -83,8 +88,8 @@ public class HomeFragment extends Fragment {
         PieChart piechart = v.findViewById(R.id.pie_chart);
 
         //TODO: llenar el PieEntry con las categorias de la App y asignar dinámicamente los values.
-        //Entradas del chart una lista
-        List<PieEntry> entries = new ArrayList<>();
+        //Ya tengo el ViewModel pero necesito algo para poder sacar el total, y poder sacar los valores porcentuales
+
         //Llenas la lista con PieEntry
         entries.add(new PieEntry(18.5f, "Category1"));
         entries.add(new PieEntry(26.7f, "Category2"));
@@ -95,7 +100,7 @@ public class HomeFragment extends Fragment {
         //Se crea un dataset
         PieDataSet set = new PieDataSet(entries, "Expenses");
         /*Poner colores*/
-        set.setColors(piechartColors);
+        set.setColors(ColorTemplate.VORDIPLOM_COLORS);
         //Se asigna el dataset al piedata
         PieData data = new PieData(set);
         //Obtengo la descripcion
@@ -111,7 +116,6 @@ public class HomeFragment extends Fragment {
         piechart.notifyDataSetChanged();
         //Refrescar
         piechart.invalidate(); // refresh
-
         return v;
     }
 
