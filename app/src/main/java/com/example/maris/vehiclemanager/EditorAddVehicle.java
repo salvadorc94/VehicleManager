@@ -65,83 +65,12 @@ public class EditorAddVehicle extends AppCompatActivity {
         Intent intent = getIntent();
         vehicle = intent.hasExtra(EXTRA_VEHICLE) ? (Vehicle) intent.getParcelableExtra(EXTRA_VEHICLE) : (new Vehicle());
 
-
-        /*final String[] opciones = getResources().getStringArray(R.array.selection_gallery_or_camara);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.select_dialog_item, opciones);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.select_option);
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (which == 0){
-                    // Opción Gallery
-                    OpenGallery();
-                    dialog.cancel();
-                }else{
-                    // Opción camara
-                    OpenCamara();
-                }
-            }
-        });
-        final AlertDialog dialog = builder.create();*/
-
-
         btn_camara.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-               /* final String[] opciones = getResources().getStringArray(R.array.selection_gallery_or_camara);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, opciones);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle(R.string.select_option);
-
-                builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (which == 0){
-                            // Opción Gallery
-                            OpenGallery();
-                            dialog.cancel();
-                        }else{
-                            // Opción camara
-                            OpenCamara();
-                        }
-                    }
-                });
-                final AlertDialog dialog = builder.create();*/
-
-
-
-                /*String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                String nameFile  = timeStamp+".jpg";
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                File photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
-
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-                imageUri = Uri.fromFile(photo);
-                startActivityForResult(intent, TAKE_PICTURE_VEHICLE);*/
-
-                //OpenGalery(view);
-
-
-                /*Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(
-                        Intent.createChooser(intent, "Seleccione una imagen"),
-                        TAKE_PICTURE_VEHICLE);
-
-               onButtonClicked(view);*/
-
-
-
-             /*   String[] opciones = getResources().getStringArray(R.array.selection_gallery_or_camara);
-             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, opciones);
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);*/
-// Configura el titulo.
+               // AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);*/
+            // Configura el titulo.
                 // builder.setTitle(R.string.select_option);
 
                 /*alertDialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
@@ -150,7 +79,7 @@ public class EditorAddVehicle extends AppCompatActivity {
 
                     }
                 })
-// Configura el mensaje.
+               // Configura el mensaje.
                         .setMessage("Hola Alex, ¿aceptas la opción?")
                         .setCancelable(false)
                         .setPositiveButton("Aceppt",new DialogInterface.OnClickListener() {
@@ -173,11 +102,6 @@ public class EditorAddVehicle extends AppCompatActivity {
                 alertDialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //if (which==0) {
-                        //OpenGalery(view);
-
-                        // }
-
 
                         if (which == 0) {
                             // Opción Gallery
@@ -200,10 +124,6 @@ public class EditorAddVehicle extends AppCompatActivity {
         edit_carplate_vehicle.setText(vehicle.getPlate());
         edit_gasoline_vehicle.setText(vehicle.getGasoline());*/
 
-
-                //   dialog.show();
-
-
             }
         });
     }
@@ -225,17 +145,6 @@ public class EditorAddVehicle extends AppCompatActivity {
         finish();
 
     }
-
-   /* public void OpenGalery(View v){
-
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        //Intent intent = new Intent();
-        intent.setType("image/*");
-        //intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(gallery, TAKE_PICTURE_VEHICLE);
-        /*startActivityForResult(
-                Intent.createChooser(intent, "Seleccione una imagen"),
-                TAKE_PICTURE_VEHICLE);*/
 
     private void OpenGallery() {
         /*Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
@@ -303,11 +212,11 @@ public class EditorAddVehicle extends AppCompatActivity {
                 }
                 break;
         }
+    }
 
 
-            /*super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-            switch (requestCode){
-                case TAKE_PICTURE_VEHICLE:
+
+            /*case TAKE_PICTURE_VEHICLE:
 
                     if (resultCode == RESULT_OK && requestCode == TAKE_PICTURE_VEHICLE) {
 
@@ -334,42 +243,6 @@ public class EditorAddVehicle extends AppCompatActivity {
                         IMAGE_VEHICLE.setImageBitmap(bmp);
 
                     }
-                    break;
+                    break;*/
 
-
-                    /*if (resultCode == RESULT_OK){
-                        Uri selectedImage = imageUri;
-                        getContentResolver().notifyChange(selectedImage,null);
-                        ContentResolver cr = getContentResolver();
-                        Bitmap bitmap;
-                        try{
-                            bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr,selectedImage);
-                            img_vehicle.setImageBitmap(bitmap);
-                            Toast.makeText(this,selectedImage.toString(),Toast.LENGTH_SHORT).show();
-                            Log.d("PATH",selectedImage.toString());
-
-                        }catch (Exception e){
-                            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
-                        }
-                    }*/
-            }
-
-
-    }
-
-
-
-
-
-
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK && requestCode == TAKE_PICTURE_VEHICLE) {
-            imageUri = data.getData();
-            img_vehicle.setImageURI(imageUri);
-        }
-    }*/
-
-
-
-
+}
