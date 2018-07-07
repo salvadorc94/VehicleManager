@@ -52,6 +52,7 @@ public class EditAddExpenses extends AppCompatActivity {
         takePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 takePhoto();
             }
         });
@@ -61,14 +62,33 @@ public class EditAddExpenses extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         time1.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.time_reminder2_spinner, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        time2.setAdapter(adapter2);
 
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (image.getDrawable() == null){
+                    Toast.makeText(getApplicationContext(),"Take a Picture",Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.setAction(Intent.ACTION_VIEW);
+                    intent.setDataAndType(imageUri, "image/*");
+                    startActivity(intent);
+                }
+            }
+        });
     }
     public void takePhoto(){
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String nameFile  = timeStamp+".jpg";
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
         File photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
-
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
         imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);

@@ -1,6 +1,5 @@
 package com.example.maris.vehiclemanager;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,15 +24,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.ViewSwitcher;
 
-import com.example.maris.vehiclemanager.Adapters.VehiclesAdapter;
 import com.example.maris.vehiclemanager.Fragments.CategoriesListFragment;
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
+import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
-import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
-
-import java.util.ArrayList;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
 
@@ -41,13 +37,18 @@ public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
         DateFilterFragment.OnFragmentInteractionListener,
         ExpensesListFragment.OnExpensesListFragmentInteractionListener,
+        VehiclesListFragment.OnVehiclesListFragmentInteractionListener,
         CategoriesListFragment.OnCategoriesListFragmentInteractionListener,
-        VehiclesListFragment.OnVehiclesListFragmentInteractionListener {
+        HomeFragment.OnFragmentInteractionListener
+{
 
     private FABToolbarLayout morph;
-    VehiclesAdapter vehiclesAdapter;
-    public static final int EDIT_VEHICLE = 1;
-    public static final int ADD_VEHICLE = 2;
+
+    /*//ImageSwitcher
+    ImageButton prev, next;
+    ImageSwitcher imageSwitcher;
+    Integer [] images_about = {R.drawable.about_j, R.drawable.about_m, R.drawable.about_s, R.drawable.about_g};
+    int i=0; //contador*/
 
     Spinner spinner;
 
@@ -94,6 +95,53 @@ public class MainActivityMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+/*
+        //Inicializando para ImageSwitcher
+        imageSwitcher = findViewById(R.id.imgsw);
+        prev = findViewById(R.id.btn_prev_about_us);
+        next = findViewById(R.id.btn_next_about_us);
+
+        //ImageSwitcher
+        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView imageView = new ImageView(getApplicationContext());
+                imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imageView.setLayoutParams(new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                return imageView;
+            }
+        });
+
+        //Animation
+        final Animation in = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in);
+        final Animation out = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out);
+        final Animation in2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in2);
+        final Animation out2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out2);
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSwitcher.setInAnimation(in);
+                imageSwitcher.setOutAnimation(out);
+                if (i > 0){
+                    i--;
+                    imageSwitcher.setImageResource(images_about[i]);
+                }
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSwitcher.setInAnimation(in2);
+                imageSwitcher.setOutAnimation(out2);
+                if (i < images_about.length - 1){
+                    i++;
+                    imageSwitcher.setImageResource(images_about[i]);
+                }
+            }
+        });*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,new HomeFragment()).commit();
 
     }
 
@@ -148,18 +196,21 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
+        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
-
+            miFragment = new HomeFragment();
+            fragmentSeleccionado=true;
         }  else if (id == R.id.nav_expenses) {
             //TODO:borrar esto
             miFragment = new DateFilterFragment();
             fragmentSeleccionado=true;
         } else if (id == R.id.nav_noti) {
+            //TODO: borrar x2
             miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
             miFragment = new CategoriesListFragment();
-            fragmentSeleccionado = true;
+            fragmentSeleccionado=true;
         } else if (id == R.id.nav_cars) {
             miFragment = new VehiclesListFragment();
             fragmentSeleccionado = true;
@@ -169,8 +220,7 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
-            Intent intent = new Intent(this,EditorAddVehicle.class);
-            startActivity(intent);
+
         }
 
         if(fragmentSeleccionado){
@@ -190,27 +240,4 @@ public class MainActivityMenu extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
 
     }
-
-    public void addVehicle(){
-
-        Intent intent = new Intent(this,EditorAddVehicle.class);
-        startActivityForResult(intent,ADD_VEHICLE);
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case ADD_VEHICLE:
-                if(resultCode == Activity.RESULT_OK) {
-                    Vehicle vehicle = data.getParcelableExtra(EditorAddVehicle.EXTRA_VEHICLE);
-                    //Toast.makeText(this, c.getName()+" "+c.getLastName(), Toast.LENGTH_SHORT).show();
-                    //VehiclesListFragment.addVehicle(vehicle);
-
-                }
-        }
-    }
-
 }
