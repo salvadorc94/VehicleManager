@@ -200,10 +200,10 @@ public class MainActivityMenu extends AppCompatActivity
             miFragment = new DateFilterFragment();
             fragmentSeleccionado=true;
         } else if (id == R.id.nav_noti) {
-
-        } else if (id == R.id.nav_categories) {
-            //TODO: borrar x2
             miFragment = new ExpensesListFragment();
+            fragmentSeleccionado = true;
+        } else if (id == R.id.nav_categories) {
+            miFragment = new CategoriesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_cars) {
             miFragment = new VehiclesListFragment();

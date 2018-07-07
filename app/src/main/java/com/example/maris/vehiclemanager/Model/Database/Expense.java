@@ -22,10 +22,10 @@ public class Expense implements Parcelable{
     @PrimaryKey(autoGenerate = true)
     private int idExp;
 
-    @ForeignKey(entity = Category.class, parentColumns = "idCat", childColumns = "idCat")
+    @ForeignKey(entity = Category.class, parentColumns = "idCat", childColumns = "idCat" , onDelete = ForeignKey.SET_NULL)
     private int idCat;
 
-    @ForeignKey(entity = Vehicle.class, parentColumns = "idCar", childColumns = "idCar")
+    @ForeignKey(entity = Vehicle.class, parentColumns = "idCar", childColumns = "idCar", onDelete = ForeignKey.SET_NULL)
     private int idCar;
 
     private String expense;
