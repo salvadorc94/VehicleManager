@@ -220,7 +220,8 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(this,AboutUs.class);
+            startActivity(intent);
         }
 
         if(fragmentSeleccionado){
