@@ -1,14 +1,21 @@
 package com.example.maris.vehiclemanager.Fragments;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.example.maris.vehiclemanager.Model.AppViewModel;
+import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.example.maris.vehiclemanager.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -20,6 +27,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.github.mikephil.charting.utils.ColorTemplate.colorWithAlpha;
 import static com.github.mikephil.charting.utils.ColorTemplate.createColors;
@@ -43,10 +52,11 @@ public class HomeFragment extends Fragment {
     */
     //ViewModel
     private AppViewModel viewModel;
-    //Entradas del chart una lista
+    //Entradas del PIECHART una lista de PieEntry
     List<PieEntry> entries = new ArrayList<>();
+    private float total=0;
 
-    //Arreglo de colores para el PieChart //TODO: Escoger mejores colores para el piechart xd
+    //Arreglo de colores para el PieChart por si se quieren usar personalizados.
     public static final int[] piechartColors ={
             rgb("#dd2c00"), rgb("#b71c1c"), rgb("#880e4f"), rgb("#7b1fa2"), rgb("#4527a0"),
             rgb("#1a237e"), rgb("#1565c0"), rgb("#006064"), rgb("#1b5e20"), rgb("#827717"),
@@ -76,6 +86,7 @@ public class HomeFragment extends Fragment {
             //mParam1 = getArguments().getString(ARG_PARAM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
     }
 
     @Override
@@ -86,9 +97,17 @@ public class HomeFragment extends Fragment {
 
         //Obtienes el chart
         PieChart piechart = v.findViewById(R.id.pie_chart);
-
         //TODO: llenar el PieEntry con las categorias de la App y asignar dinámicamente los values.
-        //Ya tengo el ViewModel pero necesito algo para poder sacar el total, y poder sacar los valores porcentuales
+        viewModel.getAllExpenses()
+                .first(new ArrayList<>())
+                .subscribe((expenses, throwable)->{
+                    for(int i=0 ;i<expenses.size();i++){
+                        total = total + expenses.get(i).getCost();
+                        Log.d("PPPPP",total+"Dentro");
+                    }
+                });
+
+        Log.d("PPPPP","Total:"+total);
 
         //Llenas la lista con PieEntry
         entries.add(new PieEntry(18.5f, "Category1"));
@@ -116,6 +135,7 @@ public class HomeFragment extends Fragment {
         piechart.notifyDataSetChanged();
         //Refrescar
         piechart.invalidate(); // refresh
+
         return v;
     }
 
