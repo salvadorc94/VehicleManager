@@ -228,8 +228,7 @@ public class HomeFragment extends Fragment
                                 }
                             }
                             if (categoryTotals.containsKey(0)) {
-                                //TODO: move 'default_no_category_name' to resources (Others)
-                                entries.add(new PieEntry(categoryTotals.get(0), "Others"));
+                                entries.add(new PieEntry(categoryTotals.get(0), getString(R.string.default_no_category_name)));
                             }
 
                             //Se crea un dataset
@@ -254,7 +253,6 @@ public class HomeFragment extends Fragment
                         }
 
                         else {
-                            //TODO: move to resources
                             Toast.makeText(this.getContext(), R.string.toast_unableto_loaddata, Toast.LENGTH_LONG).show();
                         }
                     });

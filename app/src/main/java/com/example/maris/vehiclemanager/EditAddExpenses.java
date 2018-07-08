@@ -336,7 +336,6 @@ public class EditAddExpenses extends AppCompatActivity {
 
         }
         else {
-            //TODO: move to resources
             Toast.makeText(this, R.string.toast_couldnot_saveexp,Toast.LENGTH_LONG).show();
         }
     }

@@ -140,7 +140,6 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
 
     @Override
     public void onClickDelete(Vehicle vehicle) {
-        //TODO: Validar si queda solo uno.
         viewModel.deleteVehicles(vehicle).subscribe();
     }
 

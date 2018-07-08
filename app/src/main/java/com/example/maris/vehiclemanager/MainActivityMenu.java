@@ -90,8 +90,7 @@ public class MainActivityMenu extends AppCompatActivity
         EditText nameDialogEdit = editDialog.findViewById(R.id.dialog_category_edit_name);
         saveDialogBtn.setOnClickListener(view -> {
             if (nameDialogEdit.getText().toString().isEmpty()) {
-                //TODO: move to resources
-                Toast.makeText(this, "Not saved, empty category name.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.toast_namedialogedit, Toast.LENGTH_LONG).show();
             }
 
             Category category = editingCategory;
@@ -192,7 +191,6 @@ public class MainActivityMenu extends AppCompatActivity
 
         int id = item.getItemId();
 
-        //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
             miFragment = homeFragment;
             fragmentSeleccionado = true;

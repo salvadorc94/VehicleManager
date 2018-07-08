@@ -72,13 +72,13 @@
                     android:id="@+id/btn_edit_Admin_v"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_edit_black_24dp" />
+                    android:src="@drawable/ic_edit" />
 
                 <ImageButton
                     android:id="@+id/btn_delete_admin_v"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_delete_forever_black_24dp"/>
+                    android:src="@drawable/ic_delete"/>
 
             </LinearLayout>
 

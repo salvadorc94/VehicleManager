@@ -84,7 +84,6 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
         saveDialogBtn.setOnClickListener(view -> {
 
             if (nameDialogEdit.getText().toString().isEmpty()) {
-                //TODO: move to resources
                 Toast.makeText(this.getContext(), R.string.toast_namedialogedit, Toast.LENGTH_LONG).show();
             }
 

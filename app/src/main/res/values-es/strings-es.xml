@@ -5,37 +5,21 @@
     <string name="title_activity_main_menu">MainActivityMenu</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
     <string name="btn_main_text">Iniciar</string>
 
     <string name="item_txt_home">Inicio</string>
     <string name="item_txt_expenses">Gatos</string>
-    <string name="item_txt_reminders">Recordatorios</string>
-    <string name="item_txt_config">Configuración</string>
     <string name="item_txt_about">Acerca de</string>
     <string name="item_txt_tools">Herramientas</string>
     <string name="item_txt_category">Categorías</string>
     <string name="item_txt_cars">Carros</string>
-    <string name="textview_txt_carname">Nombre del Carro</string>
 
 
     <string-array name="date_filter_spinner">
         <item>Mes</item>
         <item>Año</item>
         <item>Día</item>
-    </string-array>
-    <string-array name="time_reminder_spinner">
-        <item>1 hora</item>
-        <item>3 horas</item>
-        <item>5 horas</item>
-    </string-array>
-    <string-array name="time_reminder2_spinner">
-        <item>1 día</item>
-        <item>3 dias</item>
-        <item>5 dias</item>
     </string-array>
 
     <string-array name="selection_gallery_or_camera">
@@ -52,9 +36,7 @@
     <string name="carplate">Placa:</string>
     <string name="gasoline">Gasolina:</string>
     <string name="aceppt">Aceptar</string>
-    <string name="actual_car">Carro Actual:</string>
     <string name="edit_text_date_hint">día/mes/año</string>
-    <string name="cancel">Cancelar</string>
     <string name="select_option">Seleccione opción</string>
     <string name="saved_success_masage">Guardado con éxito</string>
 
@@ -74,5 +56,5 @@
     <string name="error">Error</string>
     <string name="toast_couldnot_saveexp">No se pudo guardar gastos</string>
     <string name="toast_val_addvehicle">Nombre de vehiculo, placa,  año y odometro son obligatorio</string>
-
+    <string name="default_no_category_name">Otros</string>
 </resources>

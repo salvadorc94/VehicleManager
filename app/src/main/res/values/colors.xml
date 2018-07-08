@@ -4,15 +4,10 @@
     <color name="colorPrimaryDark">#29434e</color>
     <color name="colorPrimaryLight">#819ca9</color>
 
-    <color name="colorAccent">#819ca9</color>
-
     <color name="colorSecondary">#bfc931</color>
-    <color name="colorSecondaryDark">#8b9800</color>
-    <color name="colorSecondaryLight">#f4fc66</color>
 
 
     <color name="colorSecondaryText">#000000</color>
     <color name="colorPrimaryText">#ffffff</color>
-    <color name="colorPrimaryLightText">#000000</color>
 
 </resources>
