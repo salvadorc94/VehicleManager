@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Expense"/>
+            android:text="@string/item_txt_expenses"/>
         <EditText
             android:id="@+id/id_exp_add_edit_exp"
             android:layout_width="0dp"
@@ -38,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Cost"/>
+            android:text="@string/cost"/>
         <EditText
             android:id="@+id/id_cost_add_edit_exp"
             android:layout_width="0dp"
@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Vehicle"/>
+            android:text="@string/vehicle"/>
         <Spinner
             android:id="@+id/id_vechicle_spinner_add_edit_exp"
             android:layout_width="0dp"
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Odometer"/>
+            android:text="@string/odometer"/>
         <EditText
             android:id="@+id/id_odom_add_edit_exp"
             android:layout_width="0dp"
@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Category"/>
+            android:text="@string/item_txt_category"/>
         <Spinner
             android:id="@+id/id_category_add_edit_exp"
             android:layout_width="0dp"
@@ -110,7 +110,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Place"/>
+            android:text="@string/place"/>
         <EditText
             android:id="@+id/id_place_add_edit_exp"
             android:layout_width="0dp"
@@ -128,7 +128,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Date"/>
+            android:text="@string/date"/>
         <EditText
             android:id="@+id/id_date_text_add_edit_exp"
             android:layout_width="0dp"
@@ -166,12 +166,12 @@
                 android:id="@+id/id_calendar_btn_add_edit_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Open Calendar"/>
+                android:text="@string/open_calendar"/>
             <Button
                 android:id="@+id/id_save_add_edit_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save"/>
+                android:text="@string/save"/>
         </LinearLayout>
 
     </LinearLayout>

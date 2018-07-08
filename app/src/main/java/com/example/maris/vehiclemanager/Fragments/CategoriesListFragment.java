@@ -85,7 +85,7 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
 
             if (nameDialogEdit.getText().toString().isEmpty()) {
                 //TODO: move to resources
-                Toast.makeText(this.getContext(), "Not saved, empty category name.", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.getContext(), R.string.toast_namedialogedit, Toast.LENGTH_LONG).show();
             }
 
             Category category = editingCategory;
