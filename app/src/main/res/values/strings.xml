@@ -26,6 +26,20 @@
         <item>Camera</item>
     </string-array>
 
+    <string-array name="default_category_list">
+        <item>Fuel</item>
+        <item>Services</item>
+        <item>Miscellaneous</item>
+        <item>Oil</item>
+        <item>Insurance</item>
+        <item>Tires</item>
+        <item>Wheel balancing</item>
+        <item>Aligning</item>
+        <item>Engine</item>
+        <item>Legal</item>
+        <item>Maintenance</item>
+    </string-array>
+
     <string name="car_name">CAR NAME</string>
     <string name="brand">Brand</string>
     <string name="model">Model</string>
