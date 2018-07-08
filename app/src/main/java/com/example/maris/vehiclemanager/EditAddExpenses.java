@@ -232,8 +232,8 @@ public class EditAddExpenses extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image.getDrawable() == null){
-                    Toast.makeText(getApplicationContext(),"Take a Picture",Toast.LENGTH_SHORT).show();
+                if (image.getDrawable() == null || expense.getReceipt() == null){
+                    Toast.makeText(getApplicationContext(),"Take a Picture or Save",Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
@@ -287,8 +287,9 @@ public class EditAddExpenses extends AppCompatActivity {
         photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo));
-        imageUri = FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo);
-        //imageUri = Uri.fromFile(photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,  Uri.fromFile(photo));
+        //imageUri = FileProvider.getUriForFile(EditAddExpenses.this,this.getApplicationContext().getPackageName() + ".provider",photo);
+        imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
