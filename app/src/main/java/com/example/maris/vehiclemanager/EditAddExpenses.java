@@ -295,7 +295,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
             selected_id_car.setOdometer(selected_id_car.getOdometer());
             expense.setPlace(edit_place.getText().toString());
             expense.setDate(selected_date);
-            if(imageUri != null)expense.setReceipt(imageUri.toString());
+            if(imageUri != null)expense.setReceipt(imageUri.toString()); else expense.setReceipt("");
             viewmodel.insertOrUpdateExpenses(expense).subscribe();
             viewmodel.insertOrUpdateVehicles(selected_id_car).subscribe();
 
