@@ -81,7 +81,8 @@ public class EditAddExpenses extends AppCompatActivity {
         img_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = (Calendar) Calendar.getInstance().clone();
+                cal.setTime(selected_date);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -97,7 +98,11 @@ public class EditAddExpenses extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 edit_date.setVisibility(View.VISIBLE);
-                selected_date = new Date(year,month,dayOfMonth);
+                Calendar cal = (Calendar) Calendar.getInstance().clone();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                selected_date = cal.getTime();
                 edit_date.setText(dayOfMonth+"/"+month+"/"+year);
             }
         };
@@ -107,15 +112,14 @@ public class EditAddExpenses extends AppCompatActivity {
         Intent intent = getIntent();
         expense =  intent.hasExtra(EXTRA_EXPENSE)?(Expense)intent.getParcelableExtra(EXTRA_EXPENSE):(new Expense()) ;
 
-        if (expense.getIdExp() == 0) {
-            Calendar c = Calendar.getInstance();
-            mDataSetListener.onDateSet(null, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        Calendar c = (Calendar) Calendar.getInstance().clone();
+        if (expense.getIdExp() != 0) {
+            c.setTime(expense.getDate());
+        }
 
-        }
-        else {
-            Date expDate = expense.getDate();
-            mDataSetListener.onDateSet(null, expDate.getYear(), expDate.getMonth(), expDate.getDate());
-        }
+        mDataSetListener.onDateSet(null, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+
+
 
         viewmodel = ViewModelProviders.of(this).get(AppViewModel.class);
         viewmodel.getAllVehicles().first(new ArrayList<>()).map((vehicles -> {
@@ -245,7 +249,7 @@ public class EditAddExpenses extends AppCompatActivity {
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
                 builder.appendPath("time");
 
-                Calendar calendar = Calendar.getInstance();
+                Calendar calendar = (Calendar) Calendar.getInstance().clone();
                 calendar.set(selected_date.getYear(),selected_date.getMonth(),selected_date.getDate());
                 ContentUris.appendId(builder,calendar.getTimeInMillis());
                 Intent intent = new Intent(Intent.ACTION_VIEW)
