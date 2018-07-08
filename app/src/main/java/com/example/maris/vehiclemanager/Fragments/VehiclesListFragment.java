@@ -2,6 +2,7 @@ package com.example.maris.vehiclemanager.Fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Adapters.VehiclesAdapter;
+import com.example.maris.vehiclemanager.EditorAddVehicle;
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 import com.example.maris.vehiclemanager.R;
@@ -109,14 +111,17 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
         mListener = null;
     }
 
-    @Override
+  /*  @Override
     public void onClickPicture(Vehicle vehicle) {
         Toast.makeText(this.getContext(), "Show Picture of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     @Override
     public void onClickEdit(Vehicle vehicle) {
-        Toast.makeText(this.getContext(), "Clicked edit of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this.getContext(),EditorAddVehicle.class);
+        intent.putExtra(EditorAddVehicle.EXTRA_VEHICLE, vehicle);
+        startActivity(intent);
+//        Toast.makeText(this.getContext(), "Clicked edit of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

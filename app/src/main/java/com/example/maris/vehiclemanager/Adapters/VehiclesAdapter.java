@@ -51,13 +51,13 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
         holder.name.setText(vehicle.getName());
         holder.plate.setText(vehicle.getPlate());
         //TODO: switch/convert to proper unit (preferences)
-        holder.odometer.setText(vehicle.getOdometer()+" Km");
+        holder.odometer.setText(vehicle.getOdometer()+"");
 
 
-        holder.picture.setOnClickListener(view -> {
+      /*  holder.picture.setOnClickListener(view -> {
             mListener.onClickPicture(vehicle);
         });
-
+*/
         holder.edit.setOnClickListener(view -> {
             mListener.onClickEdit(vehicle);
         });
@@ -73,7 +73,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
 
     public static class VehiclesViewHolder extends RecyclerView.ViewHolder {
         public TextView name, plate, odometer;
-        public ImageView picture, edit, delete;
+        public ImageView edit, delete;
 
         public VehiclesViewHolder(View itemView) {
             super(itemView);
@@ -82,7 +82,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
             plate = itemView.findViewById(R.id.item_vehicles_txt_plate);
             odometer = itemView.findViewById(R.id.item_vehicles_txt_odometer);
 
-            picture = itemView.findViewById(R.id.item_vehicles_img_show_picture);
+//            picture = itemView.findViewById(R.id.item_vehicles_img_show_picture);
             edit = itemView.findViewById(R.id.item_vehicles_img_edit);
             delete = itemView.findViewById(R.id.item_vehicles_img_delete);
         }
@@ -96,7 +96,7 @@ public class VehiclesAdapter extends RecyclerView.Adapter<VehiclesAdapter.Vehicl
     }
 
     public interface onVehiclesAdapterInteractionListener {
-        void onClickPicture(Vehicle vehicle);
+//        void onClickPicture(Vehicle vehicle);
         void onClickEdit(Vehicle vehicle);
         void onClickDelete(Vehicle vehicle);
     }

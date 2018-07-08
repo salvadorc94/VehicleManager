@@ -126,6 +126,7 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
     @Override
     public void onClickEdit(Expense expense) {
         Intent intent = new Intent(this.getContext(),EditAddExpenses.class);
+        intent.putExtra(EditAddExpenses.EXTRA_EXPENSE, expense);
         startActivity(intent);
 //        Toast.makeText(this.getContext(), "Clicked edit of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
     }
