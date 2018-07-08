@@ -27,6 +27,20 @@
         <item>Cámara</item>
     </string-array>
 
+    <string-array name="default_category_list">
+        <item>Combustible</item>
+        <item>Servicios</item>
+        <item>Miselaneos</item>
+        <item>Aceite</item>
+        <item>Seguro</item>
+        <item>Ruedas</item>
+        <item>Balanceo</item>
+        <item>Alineado</item>
+        <item>Motor</item>
+        <item>Legal</item>
+        <item>Mantenimiento</item>
+    </string-array>
+
     <string name="car_name">NOMBRE</string>
     <string name="brand">Marca</string>
     <string name="model">Modelo</string>
