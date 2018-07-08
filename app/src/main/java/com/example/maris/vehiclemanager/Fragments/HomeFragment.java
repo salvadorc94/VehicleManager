@@ -73,6 +73,8 @@ public class HomeFragment extends Fragment
     private DateFilterFragment filterFragment;
     private ExpensesListFragment expensesListFragment;
 
+    private String[] filters;
+
     //Arreglo de colores para el PieChart por si se quieren usar personalizados.
     public static final int[] piechartColors ={
             rgb("#dd2c00"), rgb("#b71c1c"), rgb("#880e4f"), rgb("#7b1fa2"), rgb("#4527a0"),
@@ -179,7 +181,13 @@ public class HomeFragment extends Fragment
 
     public void updateExpenses() {
         expensesSource = viewModel.getAllExpenses().repeat().map(expenses -> {
-            String[] filters = getResources().getStringArray(R.array.date_filter_spinner);
+
+            try{
+                filters = getResources().getStringArray(R.array.date_filter_spinner);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            
             if (selectedDate == null) selectedDate = new Date();
             if (dateType == null) dateType = filters[0];
             ArrayList<Expense> filtered = new ArrayList<>();
