@@ -156,9 +156,13 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_new_expense) {
             Intent intent = new Intent(this,EditAddExpenses.class);
             startActivity(intent);
-        } else if (id == R.id.nav_setting) {
+        } else if (id == R.id.nav_new_category) {
+            //TODO: HACER QUE SALGA EL DIALOG DEL FRAGMENTO DE AÑADIR CATEGORÍA.
+        } else if (id == R.id.nav_new_car) {
             Intent intent = new Intent(this,EditorAddVehicle.class);
             startActivity(intent);
+        } else if (id == R.id.nav_setting) {
+
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this,AboutUs.class);
             startActivity(intent);
