@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,8 @@ import com.example.maris.vehiclemanager.EditorAddVehicle;
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 import com.example.maris.vehiclemanager.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,7 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
     private OnVehiclesListFragmentInteractionListener mListener;
     private VehiclesAdapter adapter;
     private RecyclerView recycler;
+    private FloatingActionButton add_vehicle;
 
     public VehiclesListFragment() {
         // Required empty public constructor
@@ -79,6 +83,15 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
 
         adapter = new VehiclesAdapter(this, null);
 
+        add_vehicle = v.findViewById(R.id.fab_vehicles);
+        add_vehicle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),EditorAddVehicle.class);
+                startActivity(intent);
+            }
+        });
+
         //Set data from database flowable
         viewModel.getAllVehicles().subscribe(vehicles -> {
             adapter.setData(vehicles);
@@ -111,22 +124,24 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
         mListener = null;
     }
 
-  /*  @Override
+    @Override
     public void onClickPicture(Vehicle vehicle) {
         Toast.makeText(this.getContext(), "Show Picture of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
-    }*/
+    }
 
     @Override
     public void onClickEdit(Vehicle vehicle) {
-        Intent intent = new Intent(this.getContext(),EditorAddVehicle.class);
-        intent.putExtra(EditorAddVehicle.EXTRA_VEHICLE, vehicle);
+        Intent intent = new Intent(getContext(),EditorAddVehicle.class);
+        intent.putExtra("carro",vehicle);
         startActivity(intent);
-//        Toast.makeText(this.getContext(), "Clicked edit of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
+
+        //Toast.makeText(this.getContext(), "Clicked edit of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClickDelete(Vehicle vehicle) {
-        Toast.makeText(this.getContext(), "Clicked delete of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
+        //TODO: Validar si queda solo uno.
+        viewModel.deleteVehicles(vehicle).subscribe();
     }
 
     /**
