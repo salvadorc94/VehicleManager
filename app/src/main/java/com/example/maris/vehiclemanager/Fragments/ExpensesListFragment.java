@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -81,11 +83,6 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
 
         adapter = new ExpensesAdapter(this, null);
 
-        //Set data from database flowable
-        viewModel.getAllExpenses().subscribe(expenses -> {
-            adapter.setData(expenses);
-        });
-
         recycler = v.findViewById(R.id.expenses_recycler_list);
         recycler.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
@@ -93,6 +90,12 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
 
 
         return v;
+    }
+
+    public void setFlowableSource(Flowable<List<Expense>> expenseFlowable) {
+        expenseFlowable.subscribe(expenses -> {
+            adapter.setData(expenses);
+        });
     }
 
 

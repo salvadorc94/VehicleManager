@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -30,10 +28,12 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 import static com.github.mikephil.charting.utils.ColorTemplate.colorWithAlpha;
@@ -48,7 +48,8 @@ import static com.github.mikephil.charting.utils.ColorTemplate.rgb;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment
+{
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     /*private static final String ARG_PARAM1 = "param1";
@@ -62,6 +63,13 @@ public class HomeFragment extends Fragment {
     List<PieEntry> entries = new ArrayList<>();
     private HashMap<Integer, Float> categoryTotals;
     private float total=0;
+    private Date selectedDate;
+    private String dateType;
+    private Flowable<List<Expense>> expensesSource;
+    private PieChart piechart;
+
+    private DateFilterFragment filterFragment;
+    private ExpensesListFragment expensesListFragment;
 
     //Arreglo de colores para el PieChart por si se quieren usar personalizados.
     public static final int[] piechartColors ={
@@ -94,6 +102,7 @@ public class HomeFragment extends Fragment {
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
         viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+
     }
 
     @Override
@@ -101,15 +110,91 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-        FloatingActionButton fab_expenses = v.findViewById(R.id.fab_expenses);
-        fab_expenses.hide();
-        //Evita que se abra el texto al iniciar la App
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        //Obtienes el chart
-        PieChart piechart = v.findViewById(R.id.pie_chart);
 
-        //Contador de total de categoria
-        viewModel.getAllExpenses().subscribe(expenses -> {
+        if (savedInstanceState == null) {
+            filterFragment = new DateFilterFragment();
+            expensesListFragment = new ExpensesListFragment();
+        }
+        else {
+            filterFragment = (DateFilterFragment) getChildFragmentManager().getFragments().get(0);
+            expensesListFragment = (ExpensesListFragment) getChildFragmentManager().getFragments().get(1);
+        }
+
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.filter_fragment, filterFragment)
+                .replace(R.id.expenses_list_fragment, expensesListFragment)
+                .commit();
+
+
+
+        //Obtienes el chart
+        piechart = v.findViewById(R.id.pie_chart);
+        updateExpenses();
+
+
+        return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
+        updateExpenses();
+    }
+
+    public void setDateType(String dateType) {
+        this.dateType = dateType;
+        updateExpenses();
+    }
+
+    public void updateExpenses() {
+        expensesSource = viewModel.getAllExpenses().map(expenses -> {
+            if (selectedDate == null) selectedDate = new Date();
+            if (dateType == null) dateType = "Month";
+            ArrayList<Expense> filtered = new ArrayList<>();
+            for (Expense expense : expenses) {
+                Date expDate = expense.getDate();
+
+                switch (dateType) {
+                    case "Month":
+                        if(expDate.getMonth() == selectedDate.getMonth()) {
+                            filtered.add(expense);
+                        }
+                        break;
+
+                    case "Year":
+                        if(expDate.getYear() == selectedDate.getYear()) {
+                            filtered.add(expense);
+                        }
+                        break;
+
+                    case "Day":
+                        if(expDate.getDate() == selectedDate.getDate()) {
+                            filtered.add(expense);
+                        }
+                        break;
+                }
+
+            }
+
+            return filtered;
+        });
+        expensesSource.subscribe(expenses -> {
             categoryTotals = new HashMap<>();
 
             for (Expense expense : expenses) {
@@ -163,37 +248,30 @@ public class HomeFragment extends Fragment {
                     });
 
 
+
         });
-
-
-
-
-
-        return v;
+        expensesListFragment.setFlowableSource(expensesSource);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+
+  /*  @Override
+    public void onTypeChanged(String dateType) {
+        dateType = dateType;
+        updateExpenses();
+    }
+
+
+    @Override
+    public void onCategoryChanged(Category category) {
+        selectedCategory =  category;
+        updateExpenses();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
+    public void onDateChanged(Date date) {
+        selectedDate = date;
+        updateExpenses();
+    }*/
 
     /**
      * This interface must be implemented by activities that contain this
