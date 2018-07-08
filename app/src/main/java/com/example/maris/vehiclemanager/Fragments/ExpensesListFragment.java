@@ -118,7 +118,7 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
         mListener = null;
     }
 
- /*   @Override
+    /*@Override
     public void onClickPicture(Expense expense) {
         Toast.makeText(this.getContext(), "Show Picture of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
     }*/

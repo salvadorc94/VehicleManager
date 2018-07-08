@@ -137,10 +137,11 @@ public class EditorAddVehicle extends AppCompatActivity {
 
                     if(vehicle != null){
                         Log.d("SALDEBUG","meto actual");
-                        viewModel.insertOrUpdateVehicles(vehicle);
+                        saveDataVehicle();
+                        viewModel.insertOrUpdateVehicles(vehicle).subscribe();
                     }else{
                         Log.d("SALDEBUG","meto nuevo");
-                        viewModel.insertOrUpdateVehicles(saveDataVehicle()).subscribe();
+                        viewModel.insertOrUpdateVehicles(savenewDataVehicle()).subscribe();
                     }
 
                 Intent intent = new Intent(getApplicationContext(), MainActivityMenu.class);
@@ -153,7 +154,18 @@ public class EditorAddVehicle extends AppCompatActivity {
         });
     }
 
-    public Vehicle saveDataVehicle() {
+    public void saveDataVehicle() {
+        vehicle.setName(edit_name_vehicle.getText().toString());
+        vehicle.setBrand(edit_brand_vehicle.getText().toString());
+        vehicle.setModel(edit_model_vehicle.getText().toString());
+        vehicle.setYear(Integer.parseInt(edit_year_vehicle.getText().toString()));
+        vehicle.setOdometer(Long.parseLong(edit_odometer_vehicle.getText().toString()));
+        vehicle.setPlate(edit_carplate_vehicle.getText().toString());
+        vehicle.setGasoline(edit_gasoline_vehicle.getText().toString());
+        vehicle.setCarPic(path);
+    }
+
+    public Vehicle savenewDataVehicle() {
         Vehicle v = new Vehicle();
         v.setName(edit_name_vehicle.getText().toString());
         v.setBrand(edit_brand_vehicle.getText().toString());
