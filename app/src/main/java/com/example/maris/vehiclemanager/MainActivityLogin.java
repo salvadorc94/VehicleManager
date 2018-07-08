@@ -35,6 +35,7 @@ public class MainActivityLogin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),MainActivityMenu.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -67,7 +67,19 @@ public class MainActivityMenu extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        Boolean isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+                .getBoolean("isFirstRun", true);
 
+        if (isFirstRun) {
+            //show start activity
+
+            startActivity(new Intent(MainActivityMenu.this, MainActivityLogin.class));
+
+        }
+
+
+        getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                .putBoolean("isFirstRun", false).commit();
         viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
         editDialog = new Dialog(this);
         editDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -197,8 +209,6 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_new_car) {
             Intent intent = new Intent(this,EditorAddVehicle.class);
             startActivity(intent);
-        } else if (id == R.id.nav_setting) {
-
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this,AboutUs.class);
             startActivity(intent);
