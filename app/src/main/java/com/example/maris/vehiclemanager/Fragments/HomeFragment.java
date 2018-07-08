@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -100,10 +101,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
-
         FloatingActionButton fab_expenses = v.findViewById(R.id.fab_expenses);
         fab_expenses.hide();
-
+        //Evita que se abra el texto al iniciar la App
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //Obtienes el chart
         PieChart piechart = v.findViewById(R.id.pie_chart);
 
