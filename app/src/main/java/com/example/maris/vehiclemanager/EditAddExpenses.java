@@ -124,8 +124,12 @@ public class EditAddExpenses extends AppCompatActivity {
         viewmodel = ViewModelProviders.of(this).get(AppViewModel.class);
         viewmodel.getAllVehicles().first(new ArrayList<>()).map((vehicles -> {
             ArrayList<String> array = new ArrayList<>();
+            selected_id_car = vehicles.get(0);
             for (Vehicle vehicle : vehicles) {
                 array.add(vehicle.getName());
+                if (expense.getIdExp() != 0 && expense.getIdCar() == vehicle.getIdCar()) {
+                    selected_id_car = vehicle;
+                }
             }
             list_vehicules =  vehicles;
             if (!list_vehicules.isEmpty()){
@@ -142,6 +146,7 @@ public class EditAddExpenses extends AppCompatActivity {
                     ArrayAdapter<String> vehicle_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, vehiculos);
                     vehicle_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
                     spin_vehicle.setAdapter(vehicle_adapter);
+                    spin_vehicle.setSelection(list_vehicules.indexOf(selected_id_car));
 
                 }
             };
@@ -152,12 +157,16 @@ public class EditAddExpenses extends AppCompatActivity {
 
         viewmodel.getAllCategories().first(new ArrayList<>()).map((categories -> {
             ArrayList<String> arrayList = new ArrayList<>();
+            selected_category = categories.get(0);
             for (Category category : categories){
                 arrayList.add(category.getCategory());
+                if (expense.getIdExp() != 0 && expense.getIdCat() == category.getIdCat()) {
+                    selected_category = category;
+                }
+
             }
             list_categories = categories;
-            if (!list_categories.isEmpty())
-                selected_category = list_categories.get(0);
+
             return arrayList;
 
         })).subscribe((categorias, throwable) -> {
@@ -168,6 +177,7 @@ public class EditAddExpenses extends AppCompatActivity {
                     ArrayAdapter<String> category_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, categorias);
                     category_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
                     spin_category.setAdapter(category_adapter);
+                    spin_category.setSelection(list_categories.indexOf(selected_category));
 
                 }
             };
