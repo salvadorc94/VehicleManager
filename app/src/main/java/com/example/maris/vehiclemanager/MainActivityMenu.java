@@ -157,6 +157,7 @@ public class MainActivityMenu extends AppCompatActivity
             super.onBackPressed();
         }
     }
+/*
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -179,6 +180,7 @@ public class MainActivityMenu extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+*/
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
