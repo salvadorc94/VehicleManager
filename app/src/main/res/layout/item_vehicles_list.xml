@@ -29,12 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/item_vehicles_txt_name"
-            android:layout_toLeftOf="@id/item_vehicles_img_show_picture"
+            android:layout_alignParentRight="true"
             android:textAlignment="textEnd"
             android:layout_marginHorizontal="16dp"
             android:textSize="20sp"
 
             android:text="P 234 567"/>
+<!--
 
         <ImageView
             android:id="@+id/item_vehicles_img_show_picture"
@@ -43,6 +44,7 @@
             android:src="@drawable/ic_image"
             android:layout_alignParentRight="true"/>
 
+-->
 
         <TextView
             android:id="@+id/item_vehicles_txt_odometer"
