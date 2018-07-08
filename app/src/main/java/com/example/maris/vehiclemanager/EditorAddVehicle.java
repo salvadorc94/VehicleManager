@@ -45,10 +45,10 @@ public class EditorAddVehicle extends AppCompatActivity {
             edit_carplate_vehicle, edit_gasoline_vehicle, edit_brand_vehicle;
     private Uri imageUri;
     private Button btn_accept_vehicle;
-    private Vehicle vehicle;
+    private Vehicle vehicle = null;
 
     //public static final int TAKE_PICTURE_VEHICLE = 100;
-    public static final String EXTRA_VEHICLE = "EXTRA_VEHICLE";
+    public static final String VEHICLE = "carro";
 
     private final String FILE_IMAGE = "VehicleManager/";
     private final String ROUTE_IMAGE = FILE_IMAGE+"Photos";
@@ -79,7 +79,25 @@ public class EditorAddVehicle extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         Intent intent = getIntent();
-        vehicle = intent.hasExtra(EXTRA_VEHICLE) ? (Vehicle) intent.getParcelableExtra(EXTRA_VEHICLE) : (new Vehicle());
+        //vehicle = intent.hasExtra(VEHICLE) ? (Vehicle) intent.getParcelableExtra(VEHICLE) : (new Vehicle());
+        if(intent.hasExtra(VEHICLE)){
+            vehicle = intent.getParcelableExtra(VEHICLE);
+            Log.d("SALDEBUG","si trae intent");
+        }else{
+            vehicle = null;
+        }
+
+        if(vehicle != null){
+            Log.d("SALDEBUG","lleno datos");
+        //img_vehicle TODO:MOSTRAR IMG CAMARA
+            edit_name_vehicle.setText(vehicle.getName());
+            edit_model_vehicle.setText(vehicle.getModel());
+            edit_brand_vehicle.setText(vehicle.getBrand());
+            edit_year_vehicle.setText(String.valueOf(vehicle.getYear()));
+            edit_odometer_vehicle.setText(String.valueOf(vehicle.getOdometer()));
+            edit_carplate_vehicle.setText(vehicle.getPlate());
+            edit_gasoline_vehicle.setText(vehicle.getGasoline());
+        }
 
         btn_camara.setOnClickListener(new View.OnClickListener() {
 
@@ -114,20 +132,29 @@ public class EditorAddVehicle extends AppCompatActivity {
         btn_accept_vehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Vehicle carro = saveDataVehicle();
-                viewModel.insertOrUpdateVehicles(carro).subscribe();
+                if (!(edit_name_vehicle.getText().toString().isEmpty() || edit_carplate_vehicle.getText().toString().isEmpty() ||
+                        edit_odometer_vehicle.getText().toString().isEmpty() || edit_year_vehicle.getText().toString().isEmpty())) {
 
-                Intent intent = new Intent(getApplicationContext(),MainActivityMenu.class);
-                Toast.makeText(getApplicationContext(),R.string.Successful_Event,Toast.LENGTH_SHORT).show();
+                    if(vehicle != null){
+                        Log.d("SALDEBUG","meto actual");
+                        viewModel.insertOrUpdateVehicles(vehicle);
+                    }else{
+                        Log.d("SALDEBUG","meto nuevo");
+                        viewModel.insertOrUpdateVehicles(saveDataVehicle()).subscribe();
+                    }
+
+                Intent intent = new Intent(getApplicationContext(), MainActivityMenu.class);
+                Toast.makeText(getApplicationContext(), R.string.Successful_Event, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Nombre de vehiculo, placa,  año y odometro son obligatorio", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-
     public Vehicle saveDataVehicle() {
         Vehicle v = new Vehicle();
-        v.setIdCar(0);
         v.setName(edit_name_vehicle.getText().toString());
         v.setBrand(edit_brand_vehicle.getText().toString());
         v.setModel(edit_model_vehicle.getText().toString());
@@ -136,11 +163,6 @@ public class EditorAddVehicle extends AppCompatActivity {
         v.setPlate(edit_carplate_vehicle.getText().toString());
         v.setGasoline(edit_gasoline_vehicle.getText().toString());
         v.setCarPic(path);
-
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(EXTRA_VEHICLE, v);
-        setResult(Activity.RESULT_OK, returnIntent);
-        //finish();
         return v;
     }
 
