@@ -48,6 +48,24 @@
         android:layout_marginHorizontal="20dp">
         <TextView
             android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Vehicle"/>
+        <Spinner
+            android:id="@+id/id_vechicle_spinner_add_edit_exp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="40dp"></Spinner>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp">
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Odometer"/>
@@ -56,6 +74,24 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Category"/>
+        <Spinner
+            android:id="@+id/id_category_add_edit_exp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="40dp"></Spinner>
+
     </LinearLayout>
 
     <LinearLayout
@@ -83,42 +119,22 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:text="Date"/>
         <EditText
-            android:id="@+id/id_date_add_edit_exp"
+            android:id="@+id/id_date_text_add_edit_exp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:inputType="date"/>
+            android:layout_weight="0.7"/>
+        <ImageView
+            android:id="@+id/id_calendar_add_edit_exp"
+            android:layout_gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/date_picker"/>
 
     </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="Reminders"
-        android:paddingVertical="10dp"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="50dp"
-        >
 
-        <Spinner
-            android:id="@+id/id_rem1_add_edit_exp"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:layout_marginTop="20dp"></Spinner>
-        <Spinner
-            android:id="@+id/id_rem2_add_edit_exp"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:layout_marginVertical="20dp"></Spinner>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -133,16 +149,21 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
-            <Button
+            <ImageView
                 android:id="@+id/id_takePic_add_edit_exp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_photo_camera_black_24dp"/>
+            <Button
+                android:id="@+id/id_calendar_btn_add_edit_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Take Picture"/>
+                android:text="Open Calendar"/>
             <Button
                 android:id="@+id/id_save_add_edit_exp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accept"/>
+                android:text="Save"/>
         </LinearLayout>
 
     </LinearLayout>
