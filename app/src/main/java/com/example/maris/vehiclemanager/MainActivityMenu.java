@@ -1,6 +1,10 @@
 package com.example.maris.vehiclemanager;
 
+import android.app.Dialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,14 +18,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.example.maris.vehiclemanager.Fragments.CategoriesListFragment;
@@ -29,6 +36,7 @@ import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
+import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
@@ -50,11 +58,38 @@ public class MainActivityMenu extends AppCompatActivity
 
     Spinner spinner;
 
+    private AppViewModel viewModel;
+    private Dialog editDialog;
+    private Category editingCategory;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        editDialog = new Dialog(this);
+        editDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        editDialog.setContentView(R.layout.dialog_edit_category);
+        Window dialogWindow = editDialog.getWindow();
+        dialogWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button saveDialogBtn = editDialog.findViewById(R.id.dialog_category_btn_save);
+        EditText nameDialogEdit = editDialog.findViewById(R.id.dialog_category_edit_name);
+        saveDialogBtn.setOnClickListener(view -> {
+            if (nameDialogEdit.getText().toString().isEmpty()) {
+                //TODO: move to resources
+                Toast.makeText(this, "Not saved, empty category name.", Toast.LENGTH_LONG).show();
+            }
+
+            Category category = editingCategory;
+            if (category == null) {
+                category = new Category(0, nameDialogEdit.getText().toString(), "");
+            }
+            category.setCategory(nameDialogEdit.getText().toString());
+            viewModel.insertOrUpdateCategories(category).subscribe();
+            editDialog.dismiss();
+        });
 
         if(savedInstanceState == null) {
             homeFragment = new HomeFragment();
@@ -157,7 +192,8 @@ public class MainActivityMenu extends AppCompatActivity
             Intent intent = new Intent(this,EditAddExpenses.class);
             startActivity(intent);
         } else if (id == R.id.nav_new_category) {
-            //TODO: HACER QUE SALGA EL DIALOG DEL FRAGMENTO DE AÑADIR CATEGORÍA.
+            editingCategory = null;
+            editDialog.show();
         } else if (id == R.id.nav_new_car) {
             Intent intent = new Intent(this,EditorAddVehicle.class);
             startActivity(intent);
@@ -195,4 +231,5 @@ public class MainActivityMenu extends AppCompatActivity
     public void onDateChanged(Date date) {
         homeFragment.setSelectedDate(date);
     }
+
 }
