@@ -147,9 +147,6 @@ public class MainActivityMenu extends AppCompatActivity
         if (id == R.id.nav_home) {
             miFragment = homeFragment;
             fragmentSeleccionado = true;
-        }  else if (id == R.id.nav_expenses) {
-            miFragment = new ExpensesListFragment();
-            fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
             miFragment = new CategoriesListFragment();
             fragmentSeleccionado=true;

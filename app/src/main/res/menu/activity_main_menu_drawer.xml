@@ -8,11 +8,6 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/item_txt_home" />
-
-        <item
-            android:id="@+id/nav_expenses"
-            android:icon="@drawable/ic_attach_money_black_24dp"
-            android:title="@string/item_txt_expenses" />
         <item
             android:id="@+id/nav_categories"
             android:icon="@drawable/ic_touch_app_black_24dp"
