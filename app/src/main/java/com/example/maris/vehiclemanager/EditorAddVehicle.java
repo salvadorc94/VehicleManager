@@ -151,7 +151,7 @@ public class EditorAddVehicle extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), R.string.Successful_Event, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 }else{
-                    Toast.makeText(getApplicationContext(), "Nombre de vehiculo, placa,  año y odometro son obligatorio", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toast_val_addvehicle, Toast.LENGTH_SHORT).show();
                 }
             }
         });
