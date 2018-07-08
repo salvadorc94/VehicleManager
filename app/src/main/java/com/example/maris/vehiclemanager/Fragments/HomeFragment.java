@@ -165,39 +165,41 @@ public class HomeFragment extends Fragment
 
     public void updateExpenses() {
         expensesSource = viewModel.getAllExpenses().map(expenses -> {
+            String[] filters = getResources().getStringArray(R.array.date_filter_spinner);
             if (selectedDate == null) selectedDate = new Date();
-            if (dateType == null) dateType = "Month";
+            if (dateType == null) dateType = filters[0];
             ArrayList<Expense> filtered = new ArrayList<>();
             for (Expense expense : expenses) {
                 Date expDate = expense.getDate();
 
-                switch (dateType) {
-                    case "Month":
-                        if(
-                                expDate.getYear() == selectedDate.getYear() &&
-                                expDate.getMonth() == selectedDate.getMonth()
-                                )
-                        {
-                            filtered.add(expense);
-                        }
-                        break;
 
-                    case "Year":
-                        if(expDate.getYear() == selectedDate.getYear()) {
-                            filtered.add(expense);
-                        }
-                        break;
 
-                    case "Day":
-                        if(
-                                expDate.getYear() == selectedDate.getYear() &&
-                                expDate.getMonth() == selectedDate.getMonth() &&
-                                expDate.getDate() == selectedDate.getDate()
-                                )
-                        {
-                            filtered.add(expense);
-                        }
-                        break;
+                //Filter by Month
+                if(dateType.equals(filters[0])) {
+                    if (
+                            expDate.getYear() == selectedDate.getYear() &&
+                                    expDate.getMonth() == selectedDate.getMonth()
+                            ) {
+                        filtered.add(expense);
+                    }
+                }
+                //Filter by Year
+                else if (dateType.equals(filters[1])) {
+                    if(expDate.getYear() == selectedDate.getYear()) {
+                        filtered.add(expense);
+                    }
+
+                }
+                //Filter by Day
+                else if (dateType.equals(filters[2])) {
+                    if(
+                            expDate.getYear() == selectedDate.getYear() &&
+                                    expDate.getMonth() == selectedDate.getMonth() &&
+                                    expDate.getDate() == selectedDate.getDate()
+                            )
+                    {
+                        filtered.add(expense);
+                    }
                 }
 
             }
