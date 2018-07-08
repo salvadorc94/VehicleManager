@@ -132,7 +132,13 @@ public class HomeFragment extends Fragment
 
         //Obtienes el chart
         piechart = v.findViewById(R.id.pie_chart);
-        updateExpenses();
+
+        try {
+            updateExpenses();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return v;
     }
 
@@ -155,12 +161,20 @@ public class HomeFragment extends Fragment
 
     public void setSelectedDate(Date selectedDate) {
         this.selectedDate = selectedDate;
-        updateExpenses();
+        try {
+            updateExpenses();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDateType(String dateType) {
         this.dateType = dateType;
-        updateExpenses();
+        try {
+            updateExpenses();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updateExpenses() {
