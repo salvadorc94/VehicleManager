@@ -35,10 +35,6 @@
     <item android:title="@string/item_txt_tools">
         <menu>
             <item
-                android:id="@+id/nav_setting"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/item_txt_config" />
-            <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_error_black_24dp"
                 android:title="@string/item_txt_about" />
