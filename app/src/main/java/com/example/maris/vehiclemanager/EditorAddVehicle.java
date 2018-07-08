@@ -79,31 +79,6 @@ public class EditorAddVehicle extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-               // AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);*/
-            // Configura el titulo.
-                // builder.setTitle(R.string.select_option);
-
-                /*alertDialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-               // Configura el mensaje.
-                        .setMessage("Hola Alex, ¿aceptas la opción?")
-                        .setCancelable(false)
-                        .setPositiveButton("Aceppt",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                //Si la respuesta es afirmativa aquí agrega tu función a realizar.
-                            }
-                        })
-                        .setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        }).create().show();*/
-
-
                 String[] opciones = getResources().getStringArray(R.array.selection_gallery_or_camera);
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_item, opciones);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);
@@ -114,19 +89,18 @@ public class EditorAddVehicle extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         if (which == 0) {
-                            // Opción Gallery
+                            //Gallery
                             OpenGallery();
 
                         } else {
-                            // Opción camara
-                            OpenCamara();
+                            //Camera
+                            OpenCamera();
                         }
 
 
                     }
                 }).create().show();
-
-
+                
             }
         });
 
@@ -159,16 +133,6 @@ public class EditorAddVehicle extends AppCompatActivity {
     }
 
     private void OpenGallery() {
-        /*Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        //startActivityForResult(gallery, TAKE_PICTURE_VEHICLE);
-        gallery.setType("image/*");
-        startActivityForResult(
-                Intent.createChooser(gallery, "Select a picture"),
-                TAKE_PICTURE_VEHICLE);*/
-
-        /*Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        gallery.setType("image/*");
-        startActivityForResult(gallery, TAKE_PICTURE_VEHICLE);*/
 
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
@@ -176,17 +140,7 @@ public class EditorAddVehicle extends AppCompatActivity {
 
     }
 
-    private void OpenCamara() {
-
-        /*String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String nameFile  = timeStamp+".jpg";
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
-
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-        imageUri = Uri.fromFile(photo);
-        startActivityForResult(intent, TAKE_PICTURE_VEHICLE);*/
-
+    private void OpenCamera() {
 
         File fileimg = new File(Environment.getExternalStorageDirectory(),ROUTE_IMAGE);
         Boolean iscreate=fileimg.exists();
@@ -208,48 +162,6 @@ public class EditorAddVehicle extends AppCompatActivity {
         startActivityForResult(intent,CODE_SELECTED_CAMERA);
 
     }
-
-        /*protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        Uri selectedImageUri = null;
-        Uri selectedImage;
-
-        String filePath = null;
-        switch (requestCode) {
-            case TAKE_PICTURE_VEHICLE:
-
-                if (resultCode == Activity.RESULT_OK) {
-                    selectedImage = imageReturnedIntent.getData();
-                    String selectedPath=selectedImage.getPath();
-                    if (requestCode == TAKE_PICTURE_VEHICLE) {
-
-                        imageUri = imageReturnedIntent.getData();
-                        img_vehicle.setImageURI(imageUri);
-
-                        if (selectedPath != null) {
-                            InputStream imageStream = null;
-                            try {
-
-                                imageStream = getContentResolver().openInputStream(
-                                        selectedImage);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-
-                            // Transformamos la URI de la imagen a inputStream y este a un Bitmap
-                            Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-
-                            // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
-                            CircleImageView IMAGE_VEHICLE = findViewById(R.id.photo_car_add_edit_v);
-                            IMAGE_VEHICLE.setImageBitmap(bmp);
-
-                        }
-                    }
-                }
-                break;
-        }*/
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -274,8 +186,6 @@ public class EditorAddVehicle extends AppCompatActivity {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
                     img_vehicle.setImageBitmap(bitmap);
-
-
                     break;
 
             }
@@ -283,35 +193,3 @@ public class EditorAddVehicle extends AppCompatActivity {
         }
     }
 }
-
-
-
-            /*case TAKE_PICTURE_VEHICLE:
-
-                    if (resultCode == RESULT_OK && requestCode == TAKE_PICTURE_VEHICLE) {
-
-                        Uri selectedImage = imageUri;
-                        getContentResolver().notifyChange(selectedImage,null);
-                        ContentResolver cr = getContentResolver();
-                        Bitmap bitmap;
-                        InputStream imageStream = null;
-                        try{
-                            bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr,selectedImage);
-                            img_vehicle.setImageBitmap(bitmap);
-                            Toast.makeText(this,selectedImage.toString(),Toast.LENGTH_SHORT).show();
-                            Log.d("PATH",selectedImage.toString());
-
-                        }catch (Exception e){
-                            Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
-                        }
-
-                        // Transformamos la URI de la imagen a inputStream y este a un Bitmap
-                        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
-
-                        // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
-                        CircleImageView IMAGE_VEHICLE = findViewById(R.id.photo_car_add_edit_v);
-                        IMAGE_VEHICLE.setImageBitmap(bmp);
-
-                    }
-                    break;*/
-
