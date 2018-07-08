@@ -9,8 +9,4 @@
     tools:showIn="@layout/app_bar_main_activity_menu"
     android:focusable="true"
     android:id="@+id/content">
-<RelativeLayout
-    android:id="@+id/outside_button"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
 </android.support.constraint.ConstraintLayout>

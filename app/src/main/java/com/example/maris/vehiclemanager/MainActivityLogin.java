@@ -21,6 +21,8 @@ public class MainActivityLogin extends AppCompatActivity {
     public static final int PERMISSIONS_REQUEST_CAMERA = 100;
     public static final int PERMISSIONS_REQUEST_WRITE = 101;
     public static final int PERMISSIONS_REQUEST_READ = 102;
+    public static final int PERMISSIONS_REQUEST_READ_CALENDAR = 103;
+    public static final int PERMISSIONS_REQUEST_WRITE_CALENDAR = 104;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,23 @@ public class MainActivityLogin extends AppCompatActivity {
         if (permissionCheck3 != PackageManager.PERMISSION_GRANTED) {
             Log.i("Mensaje", "No se tiene permiso para leer!.");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_READ);
+        } else {
+            Log.i("Mensaje", "Tienes permiso para leer.");
+        }
+
+        int permissionCheck4  = ContextCompat.checkSelfPermission(
+                this,Manifest.permission.READ_CALENDAR);
+        if (permissionCheck4 != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Mensaje", "No se tiene permiso para leer!.");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CALENDAR}, PERMISSIONS_REQUEST_READ_CALENDAR);
+        } else {
+            Log.i("Mensaje", "Tienes permiso para leer.");
+        }
+        int permissionCheck5  = ContextCompat.checkSelfPermission(
+                this,Manifest.permission.WRITE_CALENDAR);
+        if (permissionCheck5 != PackageManager.PERMISSION_GRANTED) {
+            Log.i("Mensaje", "No se tiene permiso para leer!.");
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_CALENDAR}, PERMISSIONS_REQUEST_WRITE_CALENDAR);
         } else {
             Log.i("Mensaje", "Tienes permiso para leer.");
         }

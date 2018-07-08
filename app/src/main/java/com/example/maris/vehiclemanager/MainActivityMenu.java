@@ -45,7 +45,7 @@ public class MainActivityMenu extends AppCompatActivity
         HomeFragment.OnFragmentInteractionListener
 {
 
-    private FABToolbarLayout morph;
+    //private FABToolbarLayout morph;
     private HomeFragment homeFragment;
 
     Spinner spinner;
@@ -66,27 +66,15 @@ public class MainActivityMenu extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        morph = (FABToolbarLayout) findViewById(R.id.fabtoolbar);
-
-        View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
-
-        View outside = findViewById(R.id.outside_button);
-        outside.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                morph.hide();
-            }
-        });
-
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //morph = (FABToolbarLayout) findViewById(R.id.fabtoolbar);
+        //View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
         /*
         toolbar_img_refuel = findViewById(R.id.toolbar_img_refuel);
         toolbar_img_service = findViewById(R.id.toolbar_img_service);
         toolbar_img_reminder = findViewById(R.id.toolbar_img_reminder);
         toolbar_img_expense = findViewById(R.id.toolbar_img_expense);*/
-        fab.setOnClickListener(this);
-
+        //fab.setOnClickListener(this);
         /*toolbar_img_refuel.setOnClickListener(this);
         toolbar_img_service.setOnClickListener(this);
         toolbar_img_expense.setOnClickListener(this);
@@ -107,10 +95,10 @@ public class MainActivityMenu extends AppCompatActivity
 
    @Override
    public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
+       /* if (v.getId() == R.id.fab) {
             morph.show();
         }
-        morph.hide();
+        morph.hide();*/
     }
 
     @Override
@@ -119,7 +107,6 @@ public class MainActivityMenu extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            morph.hide();
             super.onBackPressed();
         }
     }
@@ -159,9 +146,6 @@ public class MainActivityMenu extends AppCompatActivity
         //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
             miFragment = homeFragment;
-            fragmentSeleccionado = true;
-        }  else if (id == R.id.nav_expenses) {
-            miFragment = new ExpensesListFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
             miFragment = new CategoriesListFragment();

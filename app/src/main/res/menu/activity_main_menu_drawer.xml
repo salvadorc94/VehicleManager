@@ -8,11 +8,6 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
             android:title="@string/item_txt_home" />
-
-        <item
-            android:id="@+id/nav_expenses"
-            android:icon="@drawable/ic_attach_money_black_24dp"
-            android:title="@string/item_txt_expenses" />
         <item
             android:id="@+id/nav_categories"
             android:icon="@drawable/ic_touch_app_black_24dp"
@@ -24,7 +19,17 @@
         <item
             android:id="@+id/nav_new_expense"
             android:icon="@drawable/ic_monetization_on_black_24dp"
-            android:title="Add Expense"/>
+            android:title="@string/item_txt_expense"/>
+        <item
+            android:id="@+id/nav_new_category"
+            android:icon="@drawable/ic_add_new_menu"
+            android:title="@string/item_txt_new_category"
+            />
+        <item
+            android:id="@+id/nav_new_car"
+            android:icon="@drawable/ic_add_new_menu"
+            android:title="@string/item_txt_new_car"
+            />
     </group>
 
     <item android:title="@string/item_txt_tools">

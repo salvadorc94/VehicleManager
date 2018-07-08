@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
 
     private Dialog editDialog;
     private Category editingCategory;
-
+    private FloatingActionButton fab;
 
     public CategoriesListFragment() {
         // Required empty public constructor
@@ -93,7 +94,6 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
             }
             category.setCategory(nameDialogEdit.getText().toString());
             viewModel.insertOrUpdateCategories(category).subscribe();
-
             editDialog.dismiss();
 
         });
@@ -107,6 +107,8 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
             }
         });
         editDialog.setOnDismissListener(dialogInterface -> editingCategory = null);
+
+
     }
 
     @Override
@@ -126,6 +128,17 @@ public class CategoriesListFragment extends Fragment implements CategoriesAdapte
         recycler.setAdapter(adapter);
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         recycler.setLayoutManager(manager);
+
+        fab = v.findViewById(R.id.fab_categories);
+        //Añadir nueva categoría...
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editingCategory = null;
+                editDialog.show();
+            }
+        });
+
         return v;
     }
 
