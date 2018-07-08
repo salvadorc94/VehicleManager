@@ -125,6 +125,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
             list_vehicules =  vehicles;
             if (!list_vehicules.isEmpty()){
                 selected_id_car = list_vehicules.get(0);
+                edit_odom.setText(selected_id_car.getOdometer()+"");
             }
             return array;
         })).subscribe((vehiculos, throwable) -> {
@@ -298,6 +299,12 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
             viewmodel.insertOrUpdateExpenses(expense).subscribe();
             viewmodel.insertOrUpdateVehicles(selected_id_car).subscribe();
 
+            finish();
+
+        }
+        else {
+            //TODO: move to resources
+            Toast.makeText(this, "Could not save expense",Toast.LENGTH_LONG).show();
         }
     }
     public boolean validInput(){
