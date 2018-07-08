@@ -166,7 +166,8 @@ public class MainActivityMenu extends AppCompatActivity
             Intent intent = new Intent(this,EditAddExpenses.class);
             startActivity(intent);
         } else if (id == R.id.nav_setting) {
-
+            Intent intent = new Intent(this,EditorAddVehicle.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this,AboutUs.class);
             startActivity(intent);

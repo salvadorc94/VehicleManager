@@ -69,6 +69,7 @@ public class EditorAddVehicle extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                // AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);*/
             // Configura el titulo.
                 // builder.setTitle(R.string.select_option);
@@ -95,11 +96,11 @@ public class EditorAddVehicle extends AppCompatActivity {
 
 
                 String[] opciones = getResources().getStringArray(R.array.selection_gallery_or_camara);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.select_dialog_item, opciones);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.select_dialog_item, opciones);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditorAddVehicle.this);
                 alertDialogBuilder.setTitle(R.string.select_option);
 
-                alertDialogBuilder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                alertDialogBuilder.setItems(opciones, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -116,13 +117,6 @@ public class EditorAddVehicle extends AppCompatActivity {
                     }
                 }).create().show();
 
-
-                edit_name_vehicle.setText(vehicle.getName());
-                edit_model_vehicle.setText(vehicle.getModel());
-        /*edit_year_vehicle.setText(vehicle.getYear());
-        edit_odometer_vehicle.setText((int) vehicle.getOdometer());
-        edit_carplate_vehicle.setText(vehicle.getPlate());
-        edit_gasoline_vehicle.setText(vehicle.getGasoline());*/
 
             }
         });
@@ -154,9 +148,13 @@ public class EditorAddVehicle extends AppCompatActivity {
                 Intent.createChooser(gallery, "Select a picture"),
                 TAKE_PICTURE_VEHICLE);*/
 
-        Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        /*Intent gallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         gallery.setType("image/*");
-        startActivityForResult(gallery, TAKE_PICTURE_VEHICLE);
+        startActivityForResult(gallery, TAKE_PICTURE_VEHICLE);*/
+
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        startActivityForResult(intent.createChooser(intent,"Select application..."),10);
 
     }
 
@@ -172,7 +170,7 @@ public class EditorAddVehicle extends AppCompatActivity {
         startActivityForResult(intent, TAKE_PICTURE_VEHICLE);
     }
 
-        protected void onActivityResult(int requestCode, int resultCode,
+        /*protected void onActivityResult(int requestCode, int resultCode,
                                     Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         Uri selectedImageUri = null;
@@ -211,8 +209,18 @@ public class EditorAddVehicle extends AppCompatActivity {
                     }
                 }
                 break;
+        }*/
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            Uri  path = data.getData();
+            img_vehicle.setImageURI(path);
         }
     }
+}
 
 
 
@@ -245,4 +253,3 @@ public class EditorAddVehicle extends AppCompatActivity {
                     }
                     break;*/
 
-}
