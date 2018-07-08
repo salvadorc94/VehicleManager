@@ -62,6 +62,8 @@ public class DateFilterFragment extends Fragment {
     //Declarar el texto
     TextView date_text;
 
+    Date selectedDate;
+
     private OnFragmentInteractionListener mListener;
 
     public DateFilterFragment() {
@@ -89,6 +91,7 @@ public class DateFilterFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }*/
 
+        selectedDate = new Date();
 
     }
 
@@ -109,7 +112,8 @@ public class DateFilterFragment extends Fragment {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = (Calendar) Calendar.getInstance().clone();
+                cal.setTime(selectedDate);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -124,9 +128,16 @@ public class DateFilterFragment extends Fragment {
         mDataSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar c = (Calendar) Calendar.getInstance().clone();
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                selectedDate = c.getTime();
+
                 date_text.setVisibility(View.VISIBLE);
                 date_text.setText(dayOfMonth+"/"+month+"/"+year);
-                mListener.onDateChanged(new Date(year, month, dayOfMonth));
+                mListener.onDateChanged(selectedDate);
             }
         };
 

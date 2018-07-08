@@ -173,7 +173,11 @@ public class HomeFragment extends Fragment
 
                 switch (dateType) {
                     case "Month":
-                        if(expDate.getMonth() == selectedDate.getMonth()) {
+                        if(
+                                expDate.getYear() == selectedDate.getYear() &&
+                                expDate.getMonth() == selectedDate.getMonth()
+                                )
+                        {
                             filtered.add(expense);
                         }
                         break;
@@ -185,7 +189,12 @@ public class HomeFragment extends Fragment
                         break;
 
                     case "Day":
-                        if(expDate.getDate() == selectedDate.getDate()) {
+                        if(
+                                expDate.getYear() == selectedDate.getYear() &&
+                                expDate.getMonth() == selectedDate.getMonth() &&
+                                expDate.getDate() == selectedDate.getDate()
+                                )
+                        {
                             filtered.add(expense);
                         }
                         break;

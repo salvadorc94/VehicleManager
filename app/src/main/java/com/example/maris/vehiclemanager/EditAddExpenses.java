@@ -45,7 +45,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class EditAddExpenses extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class EditAddExpenses extends AppCompatActivity {
     private EditText edit_exp,edit_cost,edit_odom,edit_place,edit_date;
     private Spinner spin_vehicle,spin_category;
     private Date selected_date;
@@ -58,6 +58,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
     private List<Vehicle> list_vehicules;
     private List<Category> list_categories;
     private Vehicle selected_id_car;
+    private Category selected_category;
     DatePickerDialog.OnDateSetListener mDataSetListener;
 
     public static final String EXTRA_EXPENSE = "EXTRA_EXPENSE";
@@ -80,7 +81,8 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         img_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar cal = Calendar.getInstance();
+                Calendar cal = (Calendar) Calendar.getInstance().clone();
+                cal.setTime(selected_date);
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
@@ -96,7 +98,11 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 edit_date.setVisibility(View.VISIBLE);
-                selected_date = new Date(year,month,dayOfMonth);
+                Calendar cal = (Calendar) Calendar.getInstance().clone();
+                cal.set(Calendar.YEAR, year);
+                cal.set(Calendar.MONTH, month);
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                selected_date = cal.getTime();
                 edit_date.setText(dayOfMonth+"/"+month+"/"+year);
             }
         };
@@ -106,21 +112,24 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         Intent intent = getIntent();
         expense =  intent.hasExtra(EXTRA_EXPENSE)?(Expense)intent.getParcelableExtra(EXTRA_EXPENSE):(new Expense()) ;
 
-        if (expense.getIdExp() == 0) {
-            Calendar c = Calendar.getInstance();
-            mDataSetListener.onDateSet(null, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+        Calendar c = (Calendar) Calendar.getInstance().clone();
+        if (expense.getIdExp() != 0) {
+            c.setTime(expense.getDate());
+        }
 
-        }
-        else {
-            Date expDate = expense.getDate();
-            mDataSetListener.onDateSet(null, expDate.getYear(), expDate.getMonth(), expDate.getDate());
-        }
+        mDataSetListener.onDateSet(null, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+
+
 
         viewmodel = ViewModelProviders.of(this).get(AppViewModel.class);
         viewmodel.getAllVehicles().first(new ArrayList<>()).map((vehicles -> {
             ArrayList<String> array = new ArrayList<>();
+            selected_id_car = vehicles.get(0);
             for (Vehicle vehicle : vehicles) {
                 array.add(vehicle.getName());
+                if (expense.getIdExp() != 0 && expense.getIdCar() == vehicle.getIdCar()) {
+                    selected_id_car = vehicle;
+                }
             }
             list_vehicules =  vehicles;
             if (!list_vehicules.isEmpty()){
@@ -137,6 +146,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                     ArrayAdapter<String> vehicle_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, vehiculos);
                     vehicle_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
                     spin_vehicle.setAdapter(vehicle_adapter);
+                    spin_vehicle.setSelection(list_vehicules.indexOf(selected_id_car));
 
                 }
             };
@@ -147,10 +157,16 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
 
         viewmodel.getAllCategories().first(new ArrayList<>()).map((categories -> {
             ArrayList<String> arrayList = new ArrayList<>();
+            selected_category = categories.get(0);
             for (Category category : categories){
                 arrayList.add(category.getCategory());
+                if (expense.getIdExp() != 0 && expense.getIdCat() == category.getIdCat()) {
+                    selected_category = category;
+                }
+
             }
             list_categories = categories;
+
             return arrayList;
 
         })).subscribe((categorias, throwable) -> {
@@ -161,6 +177,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                     ArrayAdapter<String> category_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, categorias);
                     category_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
                     spin_category.setAdapter(category_adapter);
+                    spin_category.setSelection(list_categories.indexOf(selected_category));
 
                 }
             };
@@ -171,7 +188,30 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         if(expense.getIdExp() != 0){
             edit_exp.setText(expense.getExpense());
             edit_cost.setText(expense.getCost()+"");
-            spin_vehicle.setOnItemSelectedListener(this);
+            spin_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    edit_odom.setText(list_vehicules.get(position).getOdometer()+"");
+                    selected_id_car =  list_vehicules.get(position);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spin_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    selected_category = list_categories.get(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
             edit_place.setText(expense.getPlace());
             edit_date.setText(expense.getDate()+"");
             image.setImageURI(Uri.parse(expense.getReceipt()));
@@ -197,7 +237,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                 }else{
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(photo), "image/*");
+                    intent.setDataAndType(Uri.parse(expense.getReceipt()), "image/*");
                     startActivity(intent);
                 }
             }
@@ -219,7 +259,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
                 builder.appendPath("time");
 
-                Calendar calendar = Calendar.getInstance();
+                Calendar calendar = (Calendar) Calendar.getInstance().clone();
                 calendar.set(selected_date.getYear(),selected_date.getMonth(),selected_date.getDate());
                 ContentUris.appendId(builder,calendar.getTimeInMillis());
                 Intent intent = new Intent(Intent.ACTION_VIEW)
@@ -235,7 +275,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (image.getDrawable()!=null){
-            outState.putString("PATH",imageUri.toString());
+            outState.putString("PATH",expense.getReceipt());
         }
 
     }
@@ -276,26 +316,16 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        edit_odom.setText(list_vehicules.get(position).getOdometer()+"");
-        selected_id_car =  list_vehicules.get(position);
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
     public void saveExpense(){
         if (validInput()){
             expense.setExpense(edit_exp.getText().toString());
             expense.setCost(Float.parseFloat(edit_cost.getText().toString()));
+            expense.setIdCat(selected_category.getIdCat());
             expense.setIdCar(selected_id_car.getIdCar());
             selected_id_car.setOdometer(selected_id_car.getOdometer());
             expense.setPlace(edit_place.getText().toString());
             expense.setDate(selected_date);
-            if(imageUri != null)expense.setReceipt(imageUri.toString());
+            if(imageUri != null)expense.setReceipt(imageUri.toString()); else expense.setReceipt("");
             viewmodel.insertOrUpdateExpenses(expense).subscribe();
             viewmodel.insertOrUpdateVehicles(selected_id_car).subscribe();
 
@@ -314,6 +344,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         edit_date.getText().toString().isEmpty() ||
         edit_place.getText().toString().isEmpty() ||
         selected_date == null ||
-        spin_vehicle.getSelectedItem().toString().isEmpty());
+        spin_vehicle.getSelectedItem().toString().isEmpty() ||
+        spin_category.getSelectedItem().toString().isEmpty());
     }
 }

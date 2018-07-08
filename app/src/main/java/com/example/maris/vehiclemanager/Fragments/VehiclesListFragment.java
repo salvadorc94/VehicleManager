@@ -124,10 +124,10 @@ public class VehiclesListFragment extends Fragment implements VehiclesAdapter.on
         mListener = null;
     }
 
-    @Override
+    /*@Override
     public void onClickPicture(Vehicle vehicle) {
         Toast.makeText(this.getContext(), "Show Picture of "+vehicle.getName(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     @Override
     public void onClickEdit(Vehicle vehicle) {
