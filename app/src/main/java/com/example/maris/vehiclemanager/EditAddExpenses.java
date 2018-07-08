@@ -260,8 +260,8 @@ public class EditAddExpenses extends AppCompatActivity {
                 builder.appendPath("time");
 
                 Calendar calendar = (Calendar) Calendar.getInstance().clone();
-                calendar.set(selected_date.getYear(),selected_date.getMonth(),selected_date.getDate());
-                ContentUris.appendId(builder,calendar.getTimeInMillis());
+                calendar.setTime(selected_date);
+                ContentUris.appendId(builder,calendar.getTime().getTime());
                 Intent intent = new Intent(Intent.ACTION_VIEW)
                         .setData(builder.build());
                 startActivity(intent);
@@ -323,7 +323,7 @@ public class EditAddExpenses extends AppCompatActivity {
             expense.setCost(Float.parseFloat(edit_cost.getText().toString()));
             expense.setIdCat(selected_category.getIdCat());
             expense.setIdCar(selected_id_car.getIdCar());
-            selected_id_car.setOdometer(selected_id_car.getOdometer());
+            selected_id_car.setOdometer(Long.parseLong(edit_odom.getText().toString()));
             expense.setPlace(edit_place.getText().toString());
             expense.setDate(selected_date);
             if(imageUri != null)expense.setReceipt(imageUri.toString()); else expense.setReceipt("");
