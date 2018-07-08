@@ -29,7 +29,10 @@ import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
+import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
+
+import java.util.Date;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
 
@@ -43,6 +46,7 @@ public class MainActivityMenu extends AppCompatActivity
 {
 
     private FABToolbarLayout morph;
+    private HomeFragment homeFragment;
 
     /*//ImageSwitcher
     ImageButton prev, next;
@@ -57,6 +61,14 @@ public class MainActivityMenu extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        if(savedInstanceState == null) {
+            homeFragment = new HomeFragment();
+        }
+        else {
+            homeFragment = (HomeFragment)getSupportFragmentManager().getFragments().get(0);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -141,7 +153,7 @@ public class MainActivityMenu extends AppCompatActivity
                 }
             }
         });*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,homeFragment).commit();
 
     }
 
@@ -198,12 +210,10 @@ public class MainActivityMenu extends AppCompatActivity
 
         //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
-            miFragment = new HomeFragment();
+            miFragment = homeFragment;
             fragmentSeleccionado=true;
         }  else if (id == R.id.nav_expenses) {
-            //TODO:borrar esto
-            miFragment = new DateFilterFragment();
-            fragmentSeleccionado=true;
+
         } else if (id == R.id.nav_noti) {
             //TODO: borrar x2
             miFragment = new ExpensesListFragment();
@@ -239,5 +249,15 @@ public class MainActivityMenu extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onTypeChanged(String dateType) {
+        homeFragment.setDateType(dateType);
+    }
+
+    @Override
+    public void onDateChanged(Date date) {
+        homeFragment.setSelectedDate(date);
     }
 }
