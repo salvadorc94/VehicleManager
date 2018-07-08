@@ -144,8 +144,13 @@ public class EditAddExpenses extends AppCompatActivity {
 
                     ArrayAdapter<String> vehicle_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, vehiculos);
                     vehicle_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-                    spin_vehicle.setAdapter(vehicle_adapter);
-                    spin_vehicle.setSelection(list_vehicules.indexOf(selected_id_car));
+                    if(vehiculos!= null && !vehiculos.isEmpty()) {
+                        spin_vehicle.setAdapter(vehicle_adapter);
+                        spin_vehicle.setSelection(list_vehicules.indexOf(selected_id_car));
+                    }
+                    else {
+                        Toast.makeText(EditAddExpenses.this, R.string.no_vehicles_registered_error_toast, Toast.LENGTH_LONG).show();
+                    }
 
                 }
             };
@@ -175,8 +180,13 @@ public class EditAddExpenses extends AppCompatActivity {
 
                     ArrayAdapter<String> category_adapter = new ArrayAdapter<String>(EditAddExpenses.this,android.R.layout.simple_spinner_dropdown_item, categorias);
                     category_adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
-                    spin_category.setAdapter(category_adapter);
-                    spin_category.setSelection(list_categories.indexOf(selected_category));
+                    if (categorias != null && !categorias.isEmpty()) {
+                        spin_category.setAdapter(category_adapter);
+                        spin_category.setSelection(list_categories.indexOf(selected_category));
+                    }
+                    else {
+                        Toast.makeText(EditAddExpenses.this, R.string.no_categories_registered_error_toast, Toast.LENGTH_LONG).show();
+                    }
 
                 }
             };
@@ -346,7 +356,8 @@ public class EditAddExpenses extends AppCompatActivity {
         edit_date.getText().toString().isEmpty() ||
         edit_place.getText().toString().isEmpty() ||
         selected_date == null ||
-        spin_vehicle.getSelectedItem().toString().isEmpty() ||
-        spin_category.getSelectedItem().toString().isEmpty());
+        spin_vehicle.getSelectedItem() == null ||
+
+        spin_category.getSelectedItem() == null);
     }
 }

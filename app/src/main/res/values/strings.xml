@@ -69,6 +69,8 @@
     <string name="toast_couldnot_saveexp">Could not save expense</string>
     <string name="toast_val_addvehicle">Name of vehicle, carplate, year and odometer are required</string>
     <string name="default_no_category_name">Others</string>
+    <string name="no_vehicles_registered_error_toast">No registered vehicles found. Please add a Vehicle</string>
+    <string name="no_categories_registered_error_toast">No registered categories found. Please add a Category</string>
 
 
 </resources>

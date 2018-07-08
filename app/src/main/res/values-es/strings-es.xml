@@ -71,4 +71,6 @@
     <string name="toast_couldnot_saveexp">No se pudo guardar gastos</string>
     <string name="toast_val_addvehicle">Nombre de vehiculo, placa,  año y odometro son obligatorio</string>
     <string name="default_no_category_name">Otros</string>
+    <string name="no_vehicles_registered_error_toast">No se encontraron vehiculos. Por favor agregar un vehiculo</string>
+    <string name="no_categories_registered_error_toast">No se encontraron categorias. pro favor agregar una categoria</string>
 </resources>
