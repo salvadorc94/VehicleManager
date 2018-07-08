@@ -105,6 +105,16 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         Intent intent = getIntent();
         expense =  intent.hasExtra(EXTRA_EXPENSE)?(Expense)intent.getParcelableExtra(EXTRA_EXPENSE):(new Expense()) ;
 
+        if (expense.getIdExp() == 0) {
+            Calendar c = Calendar.getInstance();
+            mDataSetListener.onDateSet(null, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+
+        }
+        else {
+            Date expDate = expense.getDate();
+            mDataSetListener.onDateSet(null, expDate.getYear(), expDate.getMonth(), expDate.getDate());
+        }
+
         viewmodel = ViewModelProviders.of(this).get(AppViewModel.class);
         viewmodel.getAllVehicles().first(new ArrayList<>()).map((vehicles -> {
             ArrayList<String> array = new ArrayList<>();
