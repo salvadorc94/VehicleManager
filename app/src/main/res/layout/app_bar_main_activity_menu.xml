@@ -21,7 +21,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main_activity_menu" />
-
+<!--
     <com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout
         android:id="@+id/fabtoolbar"
         android:layout_width="match_parent"
@@ -95,6 +95,6 @@
         </LinearLayout>
 
     </com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout>
-
+-->
 
 </android.support.design.widget.CoordinatorLayout>

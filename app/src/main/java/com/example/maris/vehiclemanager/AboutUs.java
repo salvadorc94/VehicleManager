@@ -17,7 +17,7 @@ public class AboutUs extends AppCompatActivity {
     ImageButton prev, next;
     ImageSwitcher imageSwitcher;
     Integer [] images_about = {R.drawable.about_j, R.drawable.about_m, R.drawable.about_s, R.drawable.about_g};
-    int i=0; //contador
+    int i; //contador
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,16 +46,23 @@ public class AboutUs extends AppCompatActivity {
         final Animation in2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in2);
         final Animation out2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out2);
 
+        if(i == 0){
+            imageSwitcher.setImageResource(images_about[0]);
+        }
+
         prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageSwitcher.setInAnimation(in);
                 imageSwitcher.setOutAnimation(out);
-                if (i > 0){
+
+                if(i > 0){
                     i--;
                     imageSwitcher.setImageResource(images_about[i]);
                 }
+
             }
+
         });
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +70,12 @@ public class AboutUs extends AppCompatActivity {
             public void onClick(View v) {
                 imageSwitcher.setInAnimation(in2);
                 imageSwitcher.setOutAnimation(out2);
-                if (i < images_about.length - 1){
+
+                if(i < images_about.length - 1){
                     i++;
                     imageSwitcher.setImageResource(images_about[i]);
                 }
+
             }
         });
 

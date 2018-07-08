@@ -6,9 +6,8 @@
     android:orientation="vertical"
     tools:context=".Fragments.HomeFragment">
 
-        <fragment
+        <FrameLayout
             android:id="@+id/filter_fragment"
-            android:name="com.example.maris.vehiclemanager.Fragments.DateFilterFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -28,9 +27,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="250dp" />
 
-                <fragment
+                <FrameLayout
                     android:id="@+id/expenses_list_fragment"
-                    android:name="com.example.maris.vehiclemanager.Fragments.ExpensesListFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>

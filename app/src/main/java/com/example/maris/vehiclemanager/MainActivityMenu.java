@@ -29,7 +29,10 @@ import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
 import com.example.maris.vehiclemanager.Fragments.ExpensesListFragment;
 import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
+import com.example.maris.vehiclemanager.Model.Database.Category;
 import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
+
+import java.util.Date;
 
 import static android.view.animation.AnimationUtils.loadAnimation;
 
@@ -42,13 +45,8 @@ public class MainActivityMenu extends AppCompatActivity
         HomeFragment.OnFragmentInteractionListener
 {
 
-    private FABToolbarLayout morph;
-
-    /*//ImageSwitcher
-    ImageButton prev, next;
-    ImageSwitcher imageSwitcher;
-    Integer [] images_about = {R.drawable.about_j, R.drawable.about_m, R.drawable.about_s, R.drawable.about_g};
-    int i=0; //contador*/
+    //private FABToolbarLayout morph;
+    private HomeFragment homeFragment;
 
     Spinner spinner;
 
@@ -57,30 +55,26 @@ public class MainActivityMenu extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        if(savedInstanceState == null) {
+            homeFragment = new HomeFragment();
+        }
+        else {
+            homeFragment = (HomeFragment)getSupportFragmentManager().getFragments().get(0);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        morph = (FABToolbarLayout) findViewById(R.id.fabtoolbar);
-
-        View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
-
-        View outside = findViewById(R.id.outside_button);
-        outside.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                morph.hide();
-            }
-        });
-
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //morph = (FABToolbarLayout) findViewById(R.id.fabtoolbar);
+        //View toolbar_img_refuel, toolbar_img_service, toolbar_img_expense, toolbar_img_reminder;
         /*
         toolbar_img_refuel = findViewById(R.id.toolbar_img_refuel);
         toolbar_img_service = findViewById(R.id.toolbar_img_service);
         toolbar_img_reminder = findViewById(R.id.toolbar_img_reminder);
         toolbar_img_expense = findViewById(R.id.toolbar_img_expense);*/
-        fab.setOnClickListener(this);
-
+        //fab.setOnClickListener(this);
         /*toolbar_img_refuel.setOnClickListener(this);
         toolbar_img_service.setOnClickListener(this);
         toolbar_img_expense.setOnClickListener(this);
@@ -95,62 +89,16 @@ public class MainActivityMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-/*
-        //Inicializando para ImageSwitcher
-        imageSwitcher = findViewById(R.id.imgsw);
-        prev = findViewById(R.id.btn_prev_about_us);
-        next = findViewById(R.id.btn_next_about_us);
-
-        //ImageSwitcher
-        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView imageView = new ImageView(getApplicationContext());
-                imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                imageView.setLayoutParams(new ImageSwitcher.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                return imageView;
-            }
-        });
-
-        //Animation
-        final Animation in = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in);
-        final Animation out = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out);
-        final Animation in2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.in2);
-        final Animation out2 = new AnimationUtils().loadAnimation(getApplicationContext(), R.anim.out2);
-
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageSwitcher.setInAnimation(in);
-                imageSwitcher.setOutAnimation(out);
-                if (i > 0){
-                    i--;
-                    imageSwitcher.setImageResource(images_about[i]);
-                }
-            }
-        });
-
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imageSwitcher.setInAnimation(in2);
-                imageSwitcher.setOutAnimation(out2);
-                if (i < images_about.length - 1){
-                    i++;
-                    imageSwitcher.setImageResource(images_about[i]);
-                }
-            }
-        });*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content,homeFragment).commit();
 
     }
 
    @Override
    public void onClick(View v) {
-        if (v.getId() == R.id.fab) {
+       /* if (v.getId() == R.id.fab) {
             morph.show();
         }
-        morph.hide();
+        morph.hide();*/
     }
 
     @Override
@@ -159,7 +107,6 @@ public class MainActivityMenu extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            morph.hide();
             super.onBackPressed();
         }
     }
@@ -198,15 +145,7 @@ public class MainActivityMenu extends AppCompatActivity
 
         //TODO: create methods to get non duplicated fragments and save them on variables
         if (id == R.id.nav_home) {
-            miFragment = new HomeFragment();
-            fragmentSeleccionado=true;
-        }  else if (id == R.id.nav_expenses) {
-            //TODO:borrar esto
-            miFragment = new DateFilterFragment();
-            fragmentSeleccionado=true;
-        } else if (id == R.id.nav_noti) {
-            //TODO: borrar x2
-            miFragment = new ExpensesListFragment();
+            miFragment = homeFragment;
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_categories) {
             miFragment = new CategoriesListFragment();
@@ -220,7 +159,8 @@ public class MainActivityMenu extends AppCompatActivity
         } else if (id == R.id.nav_setting) {
 
         } else if (id == R.id.nav_about) {
-
+            Intent intent = new Intent(this,AboutUs.class);
+            startActivity(intent);
         }
 
         if(fragmentSeleccionado){
@@ -239,5 +179,15 @@ public class MainActivityMenu extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public void onTypeChanged(String dateType) {
+        homeFragment.setDateType(dateType);
+    }
+
+    @Override
+    public void onDateChanged(Date date) {
+        homeFragment.setSelectedDate(date);
     }
 }
