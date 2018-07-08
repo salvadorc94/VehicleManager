@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -99,6 +100,9 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
+
+        FloatingActionButton fab_expenses = v.findViewById(R.id.fab_expenses);
+        fab_expenses.hide();
 
         //Obtienes el chart
         PieChart piechart = v.findViewById(R.id.pie_chart);
