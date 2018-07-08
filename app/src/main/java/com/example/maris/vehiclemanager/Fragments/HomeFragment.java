@@ -253,7 +253,7 @@ public class HomeFragment extends Fragment
 
                         else {
                             //TODO: move to resources
-                            Toast.makeText(this.getContext(), "Unable to load data", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this.getContext(), R.string.toast_unableto_loaddata, Toast.LENGTH_LONG).show();
                         }
                     });
 

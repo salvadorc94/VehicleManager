@@ -60,7 +60,18 @@
     <string name="item_txt_expense">Add Expense</string>
     <string name="item_txt_new_category">Add Category</string>
     <string name="item_txt_new_car">Add Car</string>
-    <string name="vehicle_txt_brand">Brand</string>
+    <string name="vehicle_txt_brand">Brand</string><string name="cost">Cost</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="place">Place</string>
+    <string name="date">Date</string>
+    <string name="open_calendar">Open Calendar</string>
+    <string name="save">Save</string>
+    <string name="toast_namedialogedit">Not saved, empty category name.</string>
+    <string name="toast_unableto_loaddata">Unable to load data</string>
+    <string name="take_picture">Take a Picture</string>
+    <string name="error">Error</string>
+    <string name="toast_couldnot_saveexp">Could not save expense</string>
+    <string name="toast_val_addvehicle">Name of vehicle, carplate, year and odometer are required</string>
 
 
 </resources>
