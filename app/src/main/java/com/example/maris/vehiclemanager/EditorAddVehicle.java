@@ -2,6 +2,7 @@ package com.example.maris.vehiclemanager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
 import java.io.File;
@@ -39,7 +41,8 @@ public class EditorAddVehicle extends AppCompatActivity {
 
     private CircleImageView img_vehicle;
     FloatingActionButton btn_camara;
-    private EditText edit_name_vehicle, edit_model_vehicle, edit_year_vehicle, edit_odometer_vehicle, edit_carplate_vehicle, edit_gasoline_vehicle;
+    private EditText edit_name_vehicle, edit_model_vehicle, edit_year_vehicle, edit_odometer_vehicle,
+            edit_carplate_vehicle, edit_gasoline_vehicle, edit_brand_vehicle;
     private Uri imageUri;
     private Button btn_accept_vehicle;
     private Vehicle vehicle;
@@ -52,6 +55,7 @@ public class EditorAddVehicle extends AppCompatActivity {
 
     final int CODE_SELECTED_GALLERY = 10;
     final int CODE_SELECTED_CAMERA = 20;
+    private AppViewModel viewModel;
 
     String path;
 
@@ -65,11 +69,14 @@ public class EditorAddVehicle extends AppCompatActivity {
         btn_camara = findViewById(R.id.fab_add_edit_v);
         edit_name_vehicle = findViewById(R.id.id_name_add_edit_v);
         edit_model_vehicle = findViewById(R.id.id_model_add_edit_v);
+        edit_brand_vehicle = findViewById(R.id.id_marca_add_edit_v);
         edit_year_vehicle = findViewById(R.id.id_year_add_edit_v);
         edit_odometer_vehicle = findViewById(R.id.id_odom_add_edit_v);
         edit_carplate_vehicle = findViewById(R.id.id_placa_add_edit_v);
         edit_gasoline_vehicle = findViewById(R.id.id_gesoline_add_edit_v);
         btn_accept_vehicle = findViewById(R.id.btn_accept_add_edit_v);
+
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         Intent intent = getIntent();
         vehicle = intent.hasExtra(EXTRA_VEHICLE) ? (Vehicle) intent.getParcelableExtra(EXTRA_VEHICLE) : (new Vehicle());
@@ -107,6 +114,9 @@ public class EditorAddVehicle extends AppCompatActivity {
         btn_accept_vehicle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Vehicle carro = saveDataVehicle();
+                viewModel.insertOrUpdateVehicles(carro).subscribe();
+
                 Intent intent = new Intent(getApplicationContext(),MainActivityMenu.class);
                 Toast.makeText(getApplicationContext(),R.string.Successful_Event,Toast.LENGTH_SHORT).show();
                 startActivity(intent);
@@ -115,21 +125,23 @@ public class EditorAddVehicle extends AppCompatActivity {
     }
 
 
-    public void saveDataVehicle() {
-
+    public Vehicle saveDataVehicle() {
         Vehicle v = new Vehicle();
+        v.setIdCar(0);
         v.setName(edit_name_vehicle.getText().toString());
+        v.setBrand(edit_brand_vehicle.getText().toString());
         v.setModel(edit_model_vehicle.getText().toString());
         v.setYear(Integer.parseInt(edit_year_vehicle.getText().toString()));
         v.setOdometer(Long.parseLong(edit_odometer_vehicle.getText().toString()));
         v.setPlate(edit_carplate_vehicle.getText().toString());
         v.setGasoline(edit_gasoline_vehicle.getText().toString());
+        v.setCarPic(path);
 
         Intent returnIntent = new Intent();
         returnIntent.putExtra(EXTRA_VEHICLE, v);
         setResult(Activity.RESULT_OK, returnIntent);
-        finish();
-
+        //finish();
+        return v;
     }
 
     private void OpenGallery() {

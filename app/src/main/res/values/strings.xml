@@ -50,18 +50,17 @@
     <string name="odometer">Odometer:</string>
     <string name="carplate">Carplate:</string>
     <string name="gasoline">Gasoline:</string>
-    <string name="aceppt">Aceppt</string>
+    <string name="aceppt">Accept</string>
     <string name="actual_car">Actual Car:</string>
     <string name="edit_text_date_hint">dd/mm/yyyy</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="select_option">Select option...</string>
     <string name="Successful_Event">Successful event</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="item_txt_expense">Add Expense</string>
     <string name="item_txt_new_category">Add Category</string>
     <string name="item_txt_new_car">Add Car</string>
+    <string name="vehicle_txt_brand">Brand</string>
 
 
 </resources>
