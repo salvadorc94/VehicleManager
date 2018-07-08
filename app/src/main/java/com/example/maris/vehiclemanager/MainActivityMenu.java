@@ -7,7 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,21 +15,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
 import com.example.maris.vehiclemanager.Fragments.CategoriesListFragment;
 import com.example.maris.vehiclemanager.Fragments.DateFilterFragment;
@@ -38,11 +29,8 @@ import com.example.maris.vehiclemanager.Fragments.HomeFragment;
 import com.example.maris.vehiclemanager.Fragments.VehiclesListFragment;
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Category;
-import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 
 import java.util.Date;
-
-import static android.view.animation.AnimationUtils.loadAnimation;
 
 public class MainActivityMenu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,
@@ -54,14 +42,11 @@ public class MainActivityMenu extends AppCompatActivity
 {
 
     //private FABToolbarLayout morph;
-    private HomeFragment homeFragment;
-
-    Spinner spinner;
 
     private AppViewModel viewModel;
     private Dialog editDialog;
     private Category editingCategory;
-
+    private String selectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,12 +87,6 @@ public class MainActivityMenu extends AppCompatActivity
             editDialog.dismiss();
         });
 
-        if(savedInstanceState == null) {
-            homeFragment = new HomeFragment();
-        }
-        else {
-            homeFragment = (HomeFragment)getSupportFragmentManager().getFragments().get(0);
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -135,11 +114,23 @@ public class MainActivityMenu extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.content,homeFragment).commit();
-
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment(), "homeFragment").commit();
+            selectedFragment = "homeFragment";
+        }
+        else {
+            selectedFragment = savedInstanceState.getString("KEY_SELECTED_FRAGMENT");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, getSupportFragmentManager().findFragmentByTag(selectedFragment), selectedFragment);
+        }
     }
 
-   @Override
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("KEY_SELECTED_FRAGMENT", selectedFragment);
+    }
+
+    @Override
    public void onClick(View v) {
        /* if (v.getId() == R.id.fab) {
             morph.show();
@@ -186,20 +177,24 @@ public class MainActivityMenu extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        android.support.v4.app.Fragment miFragment = null;
-        boolean fragmentSeleccionado=false;
-
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            miFragment = homeFragment;
-            fragmentSeleccionado = true;
+            selectedFragment = "homeFragment";
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(selectedFragment);
+            if (fragment == null) fragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment, selectedFragment).commit();
+
         } else if (id == R.id.nav_categories) {
-            miFragment = new CategoriesListFragment();
-            fragmentSeleccionado=true;
+            selectedFragment = "categoriesListFragment";
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(selectedFragment);
+            if (fragment == null) fragment = new CategoriesListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment, selectedFragment).commit();
         } else if (id == R.id.nav_cars) {
-            miFragment = new VehiclesListFragment();
-            fragmentSeleccionado = true;
+            selectedFragment = "vehiclesListFragment";
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(selectedFragment);
+            if (fragment == null) fragment = new VehiclesListFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment, selectedFragment).commit();
         } else if (id == R.id.nav_new_expense) {
             Intent intent = new Intent(this,EditAddExpenses.class);
             startActivity(intent);
@@ -214,9 +209,6 @@ public class MainActivityMenu extends AppCompatActivity
             startActivity(intent);
         }
 
-        if(fragmentSeleccionado){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content,miFragment).commit();
-        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -234,12 +226,12 @@ public class MainActivityMenu extends AppCompatActivity
 
     @Override
     public void onTypeChanged(String dateType) {
-        homeFragment.setDateType(dateType);
+        ((HomeFragment)getSupportFragmentManager().findFragmentByTag("homeFragment")).setDateType(dateType);
     }
 
     @Override
     public void onDateChanged(Date date) {
-        homeFragment.setSelectedDate(date);
+        ((HomeFragment)getSupportFragmentManager().findFragmentByTag("homeFragment")).setSelectedDate(date);
     }
 
 }

@@ -178,7 +178,7 @@ public class HomeFragment extends Fragment
     }
 
     public void updateExpenses() {
-        expensesSource = viewModel.getAllExpenses().map(expenses -> {
+        expensesSource = viewModel.getAllExpenses().repeat().map(expenses -> {
             String[] filters = getResources().getStringArray(R.array.date_filter_spinner);
             if (selectedDate == null) selectedDate = new Date();
             if (dateType == null) dateType = filters[0];
