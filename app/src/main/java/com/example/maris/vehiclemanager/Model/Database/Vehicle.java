@@ -16,6 +16,7 @@ public class Vehicle implements Parcelable{
     private int idCar;
     private String carPic;
     private String name;
+    private String brand;
     private String model;
     private int year;
     private long odometer;
@@ -23,10 +24,11 @@ public class Vehicle implements Parcelable{
     private String gasoline;
     private boolean isCar;
 
-    public Vehicle(int idCar, String carPic, String name, String model, int year, long odometer, String plate, String gasoline, boolean isCar) {
+    public Vehicle(int idCar, String carPic, String name, String brand, String model, int year, long odometer, String plate, String gasoline, boolean isCar) {
         this.idCar = idCar;
         this.carPic = carPic;
         this.name = name;
+        this.brand = brand;
         this.model = model;
         this.year = year;
         this.odometer = odometer;
@@ -40,6 +42,7 @@ public class Vehicle implements Parcelable{
         idCar = in.readInt();
         carPic = in.readString();
         name = in.readString();
+        brand = in.readString();
         model = in.readString();
         year = in.readInt();
         odometer = in.readLong();
@@ -82,6 +85,8 @@ public class Vehicle implements Parcelable{
         return name;
     }
 
+    public String getBrand(){ return brand; }
+
     public String getModel() {
         return model;
     }
@@ -118,6 +123,8 @@ public class Vehicle implements Parcelable{
         this.name = name;
     }
 
+    public void setBrand(String brand){this.brand = brand; }
+
     public void setModel(String model) {
         this.model = model;
     }
@@ -153,6 +160,7 @@ public class Vehicle implements Parcelable{
         parcel.writeInt(idCar);
         parcel.writeString(carPic);
         parcel.writeString(name);
+        parcel.writeString(brand);
         parcel.writeString(model);
         parcel.writeInt(year);
         parcel.writeLong(odometer);
