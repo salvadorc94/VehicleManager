@@ -1,9 +1,7 @@
 package com.example.maris.vehiclemanager;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -21,18 +19,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Vehicle;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -148,7 +140,7 @@ public class EditorAddVehicle extends AppCompatActivity {
                     }
 
                 Intent intent = new Intent(getApplicationContext(), MainActivityMenu.class);
-                Toast.makeText(getApplicationContext(), R.string.Successful_Event, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.saved_success_masage, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
                 }else{
                     Toast.makeText(getApplicationContext(), R.string.toast_val_addvehicle, Toast.LENGTH_SHORT).show();

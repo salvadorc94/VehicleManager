@@ -55,7 +55,7 @@
     <string name="edit_text_date_hint">dd/mm/yyyy</string>
     <string name="cancel">Cancel</string>
     <string name="select_option">Select option...</string>
-    <string name="Successful_Event">Successful event</string>
+    <string name="saved_success_masage">Saved successfully</string>
 
     <string name="item_txt_expense">Add Expense</string>
     <string name="item_txt_new_category">Add Category</string>

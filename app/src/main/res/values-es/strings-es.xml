@@ -56,7 +56,7 @@
     <string name="edit_text_date_hint">día/mes/año</string>
     <string name="cancel">Cancelar</string>
     <string name="select_option">Seleccione opción</string>
-    <string name="Successful_Event">Éxito</string>
+    <string name="saved_success_masage">Guardado con éxito</string>
 
     <string name="item_txt_expense">Agregar Gastos</string>
     <string name="item_txt_new_category">Agregar Categoría</string>
