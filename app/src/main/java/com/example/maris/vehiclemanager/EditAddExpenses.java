@@ -45,7 +45,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class EditAddExpenses extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class EditAddExpenses extends AppCompatActivity {
     private EditText edit_exp,edit_cost,edit_odom,edit_place,edit_date;
     private Spinner spin_vehicle,spin_category;
     private Date selected_date;
@@ -58,6 +58,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
     private List<Vehicle> list_vehicules;
     private List<Category> list_categories;
     private Vehicle selected_id_car;
+    private Category selected_category;
     DatePickerDialog.OnDateSetListener mDataSetListener;
 
     public static final String EXTRA_EXPENSE = "EXTRA_EXPENSE";
@@ -151,6 +152,8 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                 arrayList.add(category.getCategory());
             }
             list_categories = categories;
+            if (!list_categories.isEmpty())
+                selected_category = list_categories.get(0);
             return arrayList;
 
         })).subscribe((categorias, throwable) -> {
@@ -171,7 +174,30 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         if(expense.getIdExp() != 0){
             edit_exp.setText(expense.getExpense());
             edit_cost.setText(expense.getCost()+"");
-            spin_vehicle.setOnItemSelectedListener(this);
+            spin_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    edit_odom.setText(list_vehicules.get(position).getOdometer()+"");
+                    selected_id_car =  list_vehicules.get(position);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spin_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    selected_category = list_categories.get(i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
             edit_place.setText(expense.getPlace());
             edit_date.setText(expense.getDate()+"");
             image.setImageURI(Uri.parse(expense.getReceipt()));
@@ -276,21 +302,11 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        edit_odom.setText(list_vehicules.get(position).getOdometer()+"");
-        selected_id_car =  list_vehicules.get(position);
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
     public void saveExpense(){
         if (validInput()){
             expense.setExpense(edit_exp.getText().toString());
             expense.setCost(Float.parseFloat(edit_cost.getText().toString()));
+            expense.setIdCat(selected_category.getIdCat());
             expense.setIdCar(selected_id_car.getIdCar());
             selected_id_car.setOdometer(selected_id_car.getOdometer());
             expense.setPlace(edit_place.getText().toString());
@@ -314,6 +330,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         edit_date.getText().toString().isEmpty() ||
         edit_place.getText().toString().isEmpty() ||
         selected_date == null ||
-        spin_vehicle.getSelectedItem().toString().isEmpty());
+        spin_vehicle.getSelectedItem().toString().isEmpty() ||
+        spin_category.getSelectedItem().toString().isEmpty());
     }
 }
