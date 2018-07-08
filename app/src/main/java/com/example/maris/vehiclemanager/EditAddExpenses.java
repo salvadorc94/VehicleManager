@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
@@ -48,7 +49,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
     private EditText edit_exp,edit_cost,edit_odom,edit_place,edit_date;
     private Spinner spin_vehicle,spin_category;
     private Date selected_date;
-
+    private File photo;
     private ImageView image, img_date,takePic;
     private Button save,calendar;
     private Expense expense;
@@ -122,6 +123,10 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                 array.add(vehicle.getName());
             }
             list_vehicules =  vehicles;
+            if (!list_vehicules.isEmpty()){
+                selected_id_car = list_vehicules.get(0);
+                edit_odom.setText(selected_id_car.getOdometer()+"");
+            }
             return array;
         })).subscribe((vehiculos, throwable) -> {
 
@@ -187,13 +192,12 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (image.getDrawable() == null){
                     Toast.makeText(getApplicationContext(),"Take a Picture",Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(imageUri, "image/*");
+                    intent.setDataAndType(Uri.fromFile(photo), "image/*");
                     startActivity(intent);
                 }
             }
@@ -240,7 +244,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String nameFile  = timeStamp+".jpg";
         Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        File photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
+        photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo));
         imageUri = FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo);
@@ -291,10 +295,16 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
             selected_id_car.setOdometer(selected_id_car.getOdometer());
             expense.setPlace(edit_place.getText().toString());
             expense.setDate(selected_date);
-            expense.setReceipt(imageUri.toString());
+            if(imageUri != null)expense.setReceipt(imageUri.toString());
             viewmodel.insertOrUpdateExpenses(expense).subscribe();
             viewmodel.insertOrUpdateVehicles(selected_id_car).subscribe();
 
+            finish();
+
+        }
+        else {
+            //TODO: move to resources
+            Toast.makeText(this, "Could not save expense",Toast.LENGTH_LONG).show();
         }
     }
     public boolean validInput(){

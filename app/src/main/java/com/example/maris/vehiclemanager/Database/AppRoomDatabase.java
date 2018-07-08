@@ -64,9 +64,8 @@ public abstract class AppRoomDatabase extends RoomDatabase{
 
 
             mDao.insertOrUpdateVehicles(
-                    new Vehicle(1, "", "Mazda", "203", 2001, 10989744, "P0008989", "Super", true)
+                    new Vehicle(1, "","Mazda", "Mazda", "203", 2001, 10989744, "P0008989", "Super", true)
             );
-
 
             mDao.insertOrUpdateExpenses(
                     (new Expense(1,1, 1,"Fuel", 20, "Shell", "Super", new Date())),

@@ -29,20 +29,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/item_expenses_txt_name"
-            android:layout_toLeftOf="@id/item_expenses_img_show_picture"
+            android:layout_alignParentRight="true"
             android:textAlignment="textEnd"
             android:layout_marginHorizontal="16dp"
             android:textSize="20sp"
 
             android:text="$ 20.54"/>
 
-        <ImageView
+   <!--     <ImageView
             android:id="@+id/item_expenses_img_show_picture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_image"
             android:layout_alignParentRight="true"/>
-
+-->
 
         <TextView
             android:id="@+id/item_expenses_txt_date"
@@ -70,10 +70,9 @@
             android:id="@+id/item_expenses_img_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_delete"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/item_expenses_txt_name"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignBottom="@id/item_expenses_img_edit"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_delete" />
 
     </RelativeLayout>
     <FrameLayout

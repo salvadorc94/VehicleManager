@@ -56,9 +56,9 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
         //TODO: set dynamic category color
         holder.category.setBackgroundColor(Color.parseColor("#ffa726"));
 
-        holder.picture.setOnClickListener(view -> {
-            mListener.onClickPicture(expense);
-        });
+//        holder.picture.setOnClickListener(view -> {
+//            mListener.onClickPicture(expense);
+//        });
 
         holder.edit.setOnClickListener(view -> {
             mListener.onClickEdit(expense);
@@ -75,7 +75,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
 
     public static class ExpensesViewHolder extends RecyclerView.ViewHolder {
         public TextView name, cost, date;
-        public ImageView picture, edit, delete;
+        public ImageView edit, delete;
         public FrameLayout category;
 
         public ExpensesViewHolder(View itemView) {
@@ -85,7 +85,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
             cost = itemView.findViewById(R.id.item_expenses_txt_cost);
             date = itemView.findViewById(R.id.item_expenses_txt_date);
 
-            picture = itemView.findViewById(R.id.item_expenses_img_show_picture);
+//            picture = itemView.findViewById(R.id.item_expenses_img_show_picture);
             edit = itemView.findViewById(R.id.item_expenses_img_edit);
             delete = itemView.findViewById(R.id.item_expenses_img_delete);
 
@@ -101,7 +101,7 @@ public class ExpensesAdapter extends RecyclerView.Adapter<ExpensesAdapter.Expens
     }
 
     public interface onExpensesAdapterInteractionListener {
-        void onClickPicture(Expense expense);
+//        void onClickPicture(Expense expense);
         void onClickEdit(Expense expense);
         void onClickDelete(Expense expense);
     }
