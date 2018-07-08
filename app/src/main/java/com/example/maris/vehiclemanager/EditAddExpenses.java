@@ -197,7 +197,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
                 }else{
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(photo), "image/*");
+                    intent.setDataAndType(Uri.parse(expense.getReceipt()), "image/*");
                     startActivity(intent);
                 }
             }
@@ -235,7 +235,7 @@ public class EditAddExpenses extends AppCompatActivity implements AdapterView.On
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (image.getDrawable()!=null){
-            outState.putString("PATH",imageUri.toString());
+            outState.putString("PATH",expense.getReceipt());
         }
 
     }
