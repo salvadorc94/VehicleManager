@@ -232,7 +232,7 @@ public class EditAddExpenses extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image.getDrawable() == null){
+                if (image.getDrawable() == null || expense.getReceipt() == null){
                     Toast.makeText(getApplicationContext(), R.string.take_picture,Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent();
@@ -243,8 +243,11 @@ public class EditAddExpenses extends AppCompatActivity {
             }
         });
         if(savedInstanceState!=null){
-            imageUri =  Uri.parse(savedInstanceState.getString("PATH"));
-            image.setImageURI(imageUri);
+            if(imageUri != null){
+                imageUri =  Uri.parse(savedInstanceState.getString("PATH"));
+                image.setImageURI(imageUri);
+            }
+
         }
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,7 +277,9 @@ public class EditAddExpenses extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (image.getDrawable()!=null){
+        if (image.getDrawable()==null){
+            Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
+        }else if (image.getDrawable()!=null){
             outState.putString("PATH",expense.getReceipt());
         }
 
@@ -287,8 +292,9 @@ public class EditAddExpenses extends AppCompatActivity {
         photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo));
-        imageUri = FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo);
-        //imageUri = Uri.fromFile(photo);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,  Uri.fromFile(photo));
+       // imageUri = FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo);
+        imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
     }
 

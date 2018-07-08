@@ -68,7 +68,7 @@
     <string name="save">Save</string>
     <string name="toast_namedialogedit">Not saved, empty category name.</string>
     <string name="toast_unableto_loaddata">Unable to load data</string>
-    <string name="take_picture">Take a Picture</string>
+    <string name="take_picture">Take a Picture or Save</string>
     <string name="error">Error</string>
     <string name="toast_couldnot_saveexp">Could not save expense</string>
     <string name="toast_val_addvehicle">Name of vehicle, carplate, year and odometer are required</string>

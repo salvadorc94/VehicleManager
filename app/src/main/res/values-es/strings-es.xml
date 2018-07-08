@@ -70,7 +70,7 @@
     <string name="save">Guardar</string>
     <string name="toast_namedialogedit">Sin guardar, nombre de categoría vacío.</string>
     <string name="toast_unableto_loaddata">Imposible cargar datos</string>
-    <string name="take_picture">Tomar fotografía</string>
+    <string name="take_picture">Tomar fotografía o Guardar</string>
     <string name="error">Error</string>
     <string name="toast_couldnot_saveexp">No se pudo guardar gastos</string>
     <string name="toast_val_addvehicle">Nombre de vehiculo, placa,  año y odometro son obligatorio</string>
