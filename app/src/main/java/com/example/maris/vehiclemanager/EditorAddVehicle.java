@@ -47,13 +47,16 @@ public class EditorAddVehicle extends AppCompatActivity {
     //public static final int TAKE_PICTURE_VEHICLE = 100;
     public static final String EXTRA_VEHICLE = "EXTRA_VEHICLE";
 
-    private final String FILE_IMAGE = "VehicleManager/";
-    private final String ROUTE_IMAGE = FILE_IMAGE+"Photos";
+    private final String FILE_IMAGE = "VehicleManager/"; //Directorio principal
+    private final String ROUTE_IMAGE = FILE_IMAGE+"Photos"; //Carpeta donde se guardan las fotos
+    private final String PRINCIPAL_FILE = FILE_IMAGE + ROUTE_IMAGE; //Ruta de carpeta de directorio donde esta almacenada la fotografia
 
     final int CODE_SELECTED_GALLERY = 10;
     final int CODE_SELECTED_CAMERA = 20;
 
-    String path;
+    String path; //Almacena la ruta de la imagen
+    File fileImg_vehicle;
+    Bitmap bitmap;
 
 
     @Override
@@ -100,7 +103,7 @@ public class EditorAddVehicle extends AppCompatActivity {
 
                     }
                 }).create().show();
-                
+
             }
         });
 
@@ -142,25 +145,33 @@ public class EditorAddVehicle extends AppCompatActivity {
 
     private void OpenCamera() {
 
-        File fileimg = new File(Environment.getExternalStorageDirectory(),ROUTE_IMAGE);
-        Boolean iscreate=fileimg.exists();
+        File myFile = new File(Environment.getExternalStorageDirectory(),PRINCIPAL_FILE);
+        Boolean iscreate=myFile.exists();
         String name_img_vehicle = "";
 
         if(iscreate==false){
-            iscreate=fileimg.mkdirs();
+            iscreate=myFile.mkdirs();
         }
 
-        if (iscreate==true){
-            name_img_vehicle = (System.currentTimeMillis() / 1000) + ".jpg";
+        if (iscreate==true) {
+
+            //Captura fecha y hora en la que se inicia el proceso
+            Long consecutive = System.currentTimeMillis() / 1000;
+
+            name_img_vehicle = consecutive.toString() + ".jpg";
+
+
+            //indicamos la ruta del almacenamiento
+            path = Environment.getExternalStorageDirectory() + File.separator + PRINCIPAL_FILE + File.separator + name_img_vehicle;
+
+            //Se construye el archivo en el path
+            fileImg_vehicle = new File(path);
+
+            //Se activa el lanzamiento de la camara
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImg_vehicle));
+            startActivityForResult(intent, CODE_SELECTED_CAMERA);
         }
-
-        path = Environment.getExternalStorageDirectory()+File.separator+ROUTE_IMAGE+File.separator+name_img_vehicle;
-
-        File img_vehicle = new File(path);
-        Intent intent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(img_vehicle));
-        startActivityForResult(intent,CODE_SELECTED_CAMERA);
-
     }
 
     @Override
@@ -176,6 +187,7 @@ public class EditorAddVehicle extends AppCompatActivity {
                     break;
 
                 case CODE_SELECTED_CAMERA:
+                    //
                     MediaScannerConnection.scanFile(this, new String[]{path}, null,
                             new MediaScannerConnection.OnScanCompletedListener() {
                         @Override
@@ -184,7 +196,7 @@ public class EditorAddVehicle extends AppCompatActivity {
                         }
                     });
 
-                    Bitmap bitmap = BitmapFactory.decodeFile(path);
+                    bitmap = BitmapFactory.decodeFile(path);
                     img_vehicle.setImageBitmap(bitmap);
                     break;
 

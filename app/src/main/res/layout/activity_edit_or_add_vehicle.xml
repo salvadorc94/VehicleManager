@@ -198,8 +198,7 @@
                 android:id="@+id/btn_accept_add_edit_v"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/aceppt"
-                android:gravity="center_vertical"/>
+                android:text="@string/aceppt" />
 
         </LinearLayout>
 
