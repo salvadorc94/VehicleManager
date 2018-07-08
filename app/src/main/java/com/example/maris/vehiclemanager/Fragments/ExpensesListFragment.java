@@ -2,6 +2,7 @@ package com.example.maris.vehiclemanager.Fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Adapters.ExpensesAdapter;
+import com.example.maris.vehiclemanager.EditAddExpenses;
 import com.example.maris.vehiclemanager.Model.AppViewModel;
 import com.example.maris.vehiclemanager.Model.Database.Expense;
 import com.example.maris.vehiclemanager.R;
@@ -116,19 +118,22 @@ public class ExpensesListFragment extends Fragment implements ExpensesAdapter.on
         mListener = null;
     }
 
-    @Override
+ /*   @Override
     public void onClickPicture(Expense expense) {
         Toast.makeText(this.getContext(), "Show Picture of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     @Override
     public void onClickEdit(Expense expense) {
-        Toast.makeText(this.getContext(), "Clicked edit of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this.getContext(),EditAddExpenses.class);
+        startActivity(intent);
+//        Toast.makeText(this.getContext(), "Clicked edit of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClickDelete(Expense expense) {
-        Toast.makeText(this.getContext(), "Clicked delete of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
+        viewModel.deleteExpenses(expense).subscribe();
+//        Toast.makeText(this.getContext(), "Clicked delete of "+expense.getExpense(), Toast.LENGTH_SHORT).show();
     }
 
     /**
