@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:inputType="number"/>
+            android:inputType="numberDecimal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -133,7 +133,9 @@
             android:id="@+id/id_date_text_add_edit_exp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"/>
+            android:layout_weight="0.7"
+            android:inputType="text"
+            android:enabled="false"/>
         <ImageView
             android:id="@+id/id_calendar_add_edit_exp"
             android:layout_gravity="center"
