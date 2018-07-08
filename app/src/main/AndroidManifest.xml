@@ -13,6 +13,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:configChanges="orientation|screenSize"
         android:theme="@style/AppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -24,8 +25,7 @@
                 android:resource="@xml/file_provider_path"/>
         </provider>
 
-        <activity android:name=".MainActivityLogin"
-            android:configChanges="orientation|screenSize">
+        <activity android:name=".MainActivityLogin">
 
         </activity>
         <activity
@@ -37,14 +37,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AdminVehicle"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".EditorAddVehicle"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".AboutUs"
-            android:configChanges="orientation|screenSize"/>
-        <activity android:name=".EditAddExpenses"
-            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".AdminVehicle" />
+        <activity android:name=".EditorAddVehicle" />
+        <activity android:name=".AboutUs" />
+        <activity android:name=".EditAddExpenses"></activity>
     </application>
 
 
