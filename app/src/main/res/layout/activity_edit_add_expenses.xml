@@ -129,13 +129,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/date"/>
-        <EditText
-            android:id="@+id/id_date_text_add_edit_exp"
+        <TextView
+            android:id="@+id/id_date_text_add_txt_exp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
-            android:inputType="text"
-            android:enabled="false"/>
+            android:inputType="text"/>
         <ImageView
             android:id="@+id/id_calendar_add_edit_exp"
             android:layout_gravity="center"

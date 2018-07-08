@@ -9,20 +9,17 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.CalendarContract;
 import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -30,6 +27,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maris.vehiclemanager.Model.AppViewModel;
@@ -42,11 +40,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class EditAddExpenses extends AppCompatActivity {
-    private EditText edit_exp,edit_cost,edit_odom,edit_place,edit_date;
+    private EditText edit_exp,edit_cost,edit_odom,edit_place;
+    private TextView txt_date;
     private Spinner spin_vehicle,spin_category;
     private Date selected_date;
     private File photo;
@@ -72,7 +70,7 @@ public class EditAddExpenses extends AppCompatActivity {
         edit_cost = findViewById(R.id.id_cost_add_edit_exp);
         edit_odom =  findViewById(R.id.id_odom_add_edit_exp);
         edit_place =  findViewById(R.id.id_place_add_edit_exp);
-        edit_date =  findViewById(R.id.id_date_text_add_edit_exp);
+        txt_date =  findViewById(R.id.id_date_text_add_txt_exp);
         img_date =  findViewById(R.id.id_calendar_add_edit_exp);
         spin_vehicle =  findViewById(R.id.id_vechicle_spinner_add_edit_exp);
         spin_category = findViewById(R.id.id_category_add_edit_exp);
@@ -97,13 +95,13 @@ public class EditAddExpenses extends AppCompatActivity {
         mDataSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                edit_date.setVisibility(View.VISIBLE);
+                txt_date.setVisibility(View.VISIBLE);
                 Calendar cal = (Calendar) Calendar.getInstance().clone();
                 cal.set(Calendar.YEAR, year);
                 cal.set(Calendar.MONTH, month);
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 selected_date = cal.getTime();
-                edit_date.setText(dayOfMonth+"/"+month+"/"+year);
+                txt_date.setText(dayOfMonth+"/"+month+"/"+year);
             }
         };
 
@@ -198,7 +196,7 @@ public class EditAddExpenses extends AppCompatActivity {
             edit_exp.setText(expense.getExpense());
             edit_cost.setText(expense.getCost()+"");
             edit_place.setText(expense.getPlace());
-            edit_date.setText(expense.getDate()+"");
+            txt_date.setText(expense.getDate()+"");
             image.setImageURI(Uri.parse(expense.getReceipt()));
         }
         spin_vehicle.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -353,7 +351,7 @@ public class EditAddExpenses extends AppCompatActivity {
         return !(edit_exp.getText().toString().isEmpty() ||
         edit_cost.getText().toString().isEmpty() ||
         edit_odom.getText().toString().isEmpty() ||
-        edit_date.getText().toString().isEmpty() ||
+        txt_date.getText().toString().isEmpty() ||
         edit_place.getText().toString().isEmpty() ||
         selected_date == null ||
         spin_vehicle.getSelectedItem() == null ||
