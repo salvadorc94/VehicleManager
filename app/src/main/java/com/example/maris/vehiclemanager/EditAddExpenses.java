@@ -232,8 +232,8 @@ public class EditAddExpenses extends AppCompatActivity {
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (image.getDrawable() == null || expense.getReceipt() == null){
-                    Toast.makeText(getApplicationContext(),"Take a Picture or Save",Toast.LENGTH_SHORT).show();
+                if (image.getDrawable() == null){
+                    Toast.makeText(getApplicationContext(), R.string.take_picture,Toast.LENGTH_SHORT).show();
                 }else{
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_VIEW);
@@ -260,8 +260,8 @@ public class EditAddExpenses extends AppCompatActivity {
                 builder.appendPath("time");
 
                 Calendar calendar = (Calendar) Calendar.getInstance().clone();
-                calendar.set(selected_date.getYear(),selected_date.getMonth(),selected_date.getDate());
-                ContentUris.appendId(builder,calendar.getTimeInMillis());
+                calendar.setTime(selected_date);
+                ContentUris.appendId(builder,calendar.getTime().getTime());
                 Intent intent = new Intent(Intent.ACTION_VIEW)
                         .setData(builder.build());
                 startActivity(intent);
@@ -287,9 +287,8 @@ public class EditAddExpenses extends AppCompatActivity {
         photo = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), nameFile);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo));
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,  Uri.fromFile(photo));
-        //imageUri = FileProvider.getUriForFile(EditAddExpenses.this,this.getApplicationContext().getPackageName() + ".provider",photo);
-        imageUri = Uri.fromFile(photo);
+        imageUri = FileProvider.getUriForFile(EditAddExpenses.this,BuildConfig.APPLICATION_ID + ".provider",photo);
+        //imageUri = Uri.fromFile(photo);
         startActivityForResult(intent, TAKE_PICTURE);
     }
 
@@ -311,7 +310,7 @@ public class EditAddExpenses extends AppCompatActivity {
                         Log.d("PATH",selectedImage.toString());
 
                     }catch (Exception e){
-                        Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.error,Toast.LENGTH_SHORT).show();
                     }
                 }
         }
@@ -323,7 +322,7 @@ public class EditAddExpenses extends AppCompatActivity {
             expense.setCost(Float.parseFloat(edit_cost.getText().toString()));
             expense.setIdCat(selected_category.getIdCat());
             expense.setIdCar(selected_id_car.getIdCar());
-            selected_id_car.setOdometer(selected_id_car.getOdometer());
+            selected_id_car.setOdometer(Long.parseLong(edit_odom.getText().toString()));
             expense.setPlace(edit_place.getText().toString());
             expense.setDate(selected_date);
             if(imageUri != null)expense.setReceipt(imageUri.toString()); else expense.setReceipt("");
@@ -335,7 +334,7 @@ public class EditAddExpenses extends AppCompatActivity {
         }
         else {
             //TODO: move to resources
-            Toast.makeText(this, "Could not save expense",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.toast_couldnot_saveexp,Toast.LENGTH_LONG).show();
         }
     }
     public boolean validInput(){
