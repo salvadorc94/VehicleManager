@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VehicleManager</string>
+    <string name="title_activity_main_menu">MainActivityMenu</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="btn_main_text">Iniciar</string>
+
+    <string name="item_txt_home">Inicio</string>
+    <string name="item_txt_expenses">Gatos</string>
+    <string name="item_txt_about">Acerca de</string>
+    <string name="item_txt_tools">Herramientas</string>
+    <string name="item_txt_category">Categorías</string>
+    <string name="item_txt_cars">Carros</string>
+
+
+    <string-array name="date_filter_spinner">
+        <item>Mes</item>
+        <item>Año</item>
+        <item>Día</item>
+    </string-array>
+
+    <string-array name="selection_gallery_or_camera">
+        <item>Galería</item>
+        <item>Cámara</item>
+    </string-array>
+
+    <string-array name="default_category_list">
+        <item>Combustible</item>
+        <item>Servicios</item>
+        <item>Miselaneos</item>
+        <item>Aceite</item>
+        <item>Seguro</item>
+        <item>Ruedas</item>
+        <item>Balanceo</item>
+        <item>Alineado</item>
+        <item>Motor</item>
+        <item>Legal</item>
+        <item>Mantenimiento</item>
+    </string-array>
+
+    <string name="car_name">NOMBRE</string>
+    <string name="brand">Marca</string>
+    <string name="model">Modelo</string>
+    <string name="year">Año</string>
+    <string name="name">Nombre:</string>
+    <string name="odometer">Odómetro:</string>
+    <string name="carplate">Placa:</string>
+    <string name="gasoline">Gasolina:</string>
+    <string name="aceppt">Aceptar</string>
+    <string name="edit_text_date_hint">día/mes/año</string>
+    <string name="select_option">Seleccione opción</string>
+    <string name="saved_success_masage">Guardado con éxito</string>
+
+    <string name="item_txt_expense">Agregar Gastos</string>
+    <string name="item_txt_new_category">Agregar Categoría</string>
+    <string name="item_txt_new_car">Agregar Carro</string>
+    <string name="vehicle_txt_brand">Marca</string>
+    <string name="cost">Costo</string>
+    <string name="vehicle">Vehículo</string>
+    <string name="place">Lugar</string>
+    <string name="date">Fecha</string>
+    <string name="open_calendar">Abrir Calendario</string>
+    <string name="save">Guardar</string>
+    <string name="toast_namedialogedit">Sin guardar, nombre de categoría vacío.</string>
+    <string name="toast_unableto_loaddata">Imposible cargar datos</string>
+    <string name="take_picture">Tomar fotografía o Guardar</string>
+    <string name="error">Error</string>
+    <string name="toast_couldnot_saveexp">No se pudo guardar gastos</string>
+    <string name="toast_val_addvehicle">Nombre de vehiculo, placa,  año y odometro son obligatorio</string>
+    <string name="default_no_category_name">Otros</string>
+    <string name="no_vehicles_registered_error_toast">No se encontraron vehiculos. Por favor agregar un vehiculo</string>
+    <string name="no_categories_registered_error_toast">No se encontraron categorias. pro favor agregar una categoria</string>
+</resources>

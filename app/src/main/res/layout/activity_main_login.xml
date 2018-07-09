@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivityLogin"
     android:orientation="vertical"
-    android:background="@color/white"
     android:gravity="center_vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -24,6 +23,5 @@
         android:layout_marginTop="15dp"
         android:background="@color/colorPrimary"
         android:text="@string/btn_main_text"
-        android:textColor="@color/white"/>
-
+        android:textColor="@color/colorPrimaryText"/>
 </LinearLayout>
